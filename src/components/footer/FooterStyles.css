@@ -1,0 +1,55 @@
+.inputs input {
+    width: 400px;
+    padding: 10px;
+    border-radius: .3rem;
+    outline: none;
+}
+.inputs button {
+    border-radius: .3rem;
+    padding: 10px 23px;
+}
+.inputs button:hover {
+    background: none;
+    border: 1px solid #fff;
+}
+.main-div {
+    padding: 20px;
+}
+.pink-bg {
+    padding: 20px;
+    border-radius: .5rem;
+    margin-top: 10px;
+}
+.company li {
+    margin: 10px;
+    margin-left: 8px;
+}
+.company li:hover {
+    text-decoration: underline;
+}
+.touch li:hover {
+    text-decoration: underline;
+}
+.touch li {
+    margin: 10px;
+    margin-left: 6px;
+}
+
+@media screen and (min-width: 200px) and (max-width:720px){
+    .inputs input {
+        width: 300px;
+        margin-left: .5rem;
+    }
+    .inputs button {
+        margin-left: .6rem;
+    }
+    .company {
+        text-align: center;
+    }
+    .touch {
+        text-align: center;
+    }
+    .texts  {
+      margin-top: 1.5rem;
+    }
+}
