@@ -1,6 +1,6 @@
 <<<<<<< HEAD
 import { useEffect, useState } from "react";
-import Navbar from "./Components/Narbar/Navbar";
+import Header from "./Components/Header";
 
 const App = () => {
   const current_theme = localStorage.getItem('current_theme');
@@ -11,7 +11,7 @@ const App = () => {
   },[theme])
   return (
     <div className={`container ${theme}`}>
-      <Navbar theme={theme} setTheme={setTheme} />
+      <Header theme={theme} setTheme={setTheme} />
     </div>
   );
 };
