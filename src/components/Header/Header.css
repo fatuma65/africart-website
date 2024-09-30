@@ -1,0 +1,96 @@
+.header{
+  width: 100%;
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  padding: 15px ;
+  transition: 0.5s;
+}
+.header h2{
+  font-size: 40px;
+  font-weight: 900;
+}
+
+.logo{
+  
+  color: #D51C75;
+}
+
+.toggle-icon {
+  width: 35px;
+  height: 30px;
+  cursor: pointer;
+  margin-left: 40px;
+}
+.search-icon {
+  width: 35px;
+  height: 30px;
+  padding-top: 4px;
+  cursor: pointer;
+}
+
+.cart-icon {
+  height: 30px;
+  font-size: 30px;
+  cursor: pointer;
+}
+.login-icon {
+  width: 35px;
+  height: 30px;
+  cursor: pointer;
+  padding-left: 5px;
+}
+.search-box{
+  display: flex;
+  align-items: center;
+  background: #1F1D1D;
+  padding: 0px 15px;
+  border-radius: 50px;
+  width: 600px;
+  justify-content: space-between;
+}
+.search-box input{
+  padding: 14px;
+  background: transparent;
+  outline: 0;
+  color: #fff;
+  font-size: 18px;
+  width: 480px;
+}
+.search-box::placeholder{
+  color: #fff;
+}
+.search-box img{
+  width: 20px;
+  cursor: pointer;
+}
+.dark .header{
+  background: #000;
+  color: #fff;
+}
+.dark .search-box{
+  background: #fff;
+}
+.dark .search-box input{
+  color: #222;
+}
+.dark .search-box input::placeholder{
+  color: #222;
+}
+/* .cart-count-icon{
+  width: 45px;
+  height: 25px;
+  padding-bottom: 15px;
+  margin-left: -5px;
+  border-radius: 50%;
+  font-size: 18px;
+  background:red;
+  color: #fff;
+  gap: 30px;
+}  */
+.icons{
+  display: flex;
+  justify-content: space-evenly;
+  gap: 8px;
+}
