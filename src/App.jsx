@@ -1,3 +1,21 @@
+<<<<<<< HEAD
+import { useEffect, useState } from "react";
+import Header from "./Components/Header";
+
+const App = () => {
+  const current_theme = localStorage.getItem('current_theme');
+  const [theme, setTheme] = useState(current_theme ? current_theme : 'light');
+
+  useEffect(()=>{
+    localStorage.setItem('current_theme', theme)
+  },[theme])
+  return (
+    <div className={`container ${theme}`}>
+      <Header theme={theme} setTheme={setTheme} />
+    </div>
+  );
+};
+=======
 import { Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
 import Shop from "./Pages/Shop";
@@ -29,5 +47,6 @@ function App() {
     </>
   );
 }
+>>>>>>> db8ab3118f37f6c3e521002441b55e53a3a1f9fc
 
 export default App;

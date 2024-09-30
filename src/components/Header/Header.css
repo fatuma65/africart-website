@@ -1,9 +1,14 @@
 .header{
+<<<<<<< HEAD
+=======
+  position: fixed;
+>>>>>>> 8ffdde82332f6042f6250c589f2facd9370cc47c
   width: 100%;
   display:flex;
   align-items: center;
   justify-content: space-between;
   background: #fff;
+<<<<<<< HEAD
   padding: 15px ;
   transition: 0.5s;
 }
@@ -17,12 +22,25 @@
   color: #D51C75;
 }
 
+=======
+  padding: 15px 7%;
+  transition: 0.5s;
+}
+.logo{
+  width: 90px;
+  cursor: pointer;
+  padding-right: 40px;
+}
+
+
+>>>>>>> 8ffdde82332f6042f6250c589f2facd9370cc47c
 .toggle-icon {
   width: 35px;
   height: 30px;
   cursor: pointer;
   margin-left: 40px;
 }
+<<<<<<< HEAD
 .search-icon {
   width: 35px;
   height: 30px;
@@ -34,11 +52,19 @@
   height: 30px;
   font-size: 30px;
   cursor: pointer;
+=======
+.cart-icon {
+  width: 35px;
+  height: 30px;
+  cursor: pointer;
+  margin-left: 40px;
+>>>>>>> 8ffdde82332f6042f6250c589f2facd9370cc47c
 }
 .login-icon {
   width: 35px;
   height: 30px;
   cursor: pointer;
+<<<<<<< HEAD
   padding-left: 5px;
 }
 .search-box{
@@ -94,3 +120,11 @@
   justify-content: space-evenly;
   gap: 8px;
 }
+=======
+  margin-left: 40px;
+}
+.dark .header{
+ background:rgb(187, 175, 175);
+ color: #fff;
+}
+>>>>>>> 8ffdde82332f6042f6250c589f2facd9370cc47c
