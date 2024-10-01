@@ -1,0 +1,42 @@
+.detail {
+    height: 500px;
+    border-radius: .5rem;
+}
+.cont {
+    margin-left: 3rem;
+}
+.cont p {
+    font-size: 1.1rem;
+}
+.cont button {
+    padding: 10px;
+    border-radius: .3rem;
+    font-size: 1.1rem;
+}
+.product-det {
+    margin-top: 60px;
+    margin-left: 8rem;
+    padding: 5px;
+}
+.hr {
+    border: 3px solid #D51C75;
+    margin-left: 8.5rem;
+}
+.hr1 {
+    border: 3px solid #D51C75;
+}
+.quantity-buttons button {
+    border: 1px solid #ddd;
+    margin: 10px;
+    font-size:1.5rem ;
+    width: 60px;
+}
+
+@media screen and (min-width: 200px) and (max-width:720px){
+    .cont {
+        margin: 10px;
+    }
+    .cont p {
+        font-size: 1.2rem;
+    }
+}
