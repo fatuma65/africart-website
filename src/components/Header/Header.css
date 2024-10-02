@@ -1,0 +1,64 @@
+body.light {
+  background-color: #fff;
+  color: #000;
+}
+body.dark {
+  background-color: #000000;
+  color: #fff;
+}
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  color: #000;
+  height: 80px;
+}
+.header h2 {
+  font-size: 40px;
+  font-weight: 900;
+}
+.dark .header {
+  background: #000;
+  color: #fff;
+}
+.logo {
+  color: #d51c75;
+}
+.cart-icon {
+  height: 30px;
+  font-size: 30px;
+  cursor: pointer;
+}
+.search-box {
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  justify-content: space-between;
+  border: 3px solid #000;
+}
+.search-box input {
+  padding: 10px;
+  background: transparent;
+  outline: 0;
+  color: #fff;
+  font-size: 18px;
+  width: 550px;
+}
+body.dark .search-box {
+  color: #000;
+  background-color: #fff;
+}
+
+body.light .search-box input {
+  color: #000;
+}
+.dark .search-box input {
+  color: #000;
+}
+.icons {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 8px;
+}
