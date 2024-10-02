@@ -1,5 +1,6 @@
 import Footer from "../components/footer/Footer";
 import HomeSection from "../components/HeroSection/Hero";
+import Trending from "../components/TrendingProducts/Trending";
 import Header from '../components/Header/Header'
 import { useEffect, useState } from "react";
 
@@ -14,9 +15,10 @@ const Home = () => {
   }, [theme]);
   return (
     <>
-      <Header theme={theme} setTheme={setTheme} />
-      <HomeSection />
-      <Footer />
+    <Header theme={theme} setTheme={setTheme} />
+    <HomeSection />
+    <Trending />
+    <Footer />
     </>
   );
 };

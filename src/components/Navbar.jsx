@@ -1,9 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
+  const location = useLocation();
+
   return (
     <>
-      <header className="bg-white/30 backdrop-blur-lg border border-white/20 absolute mt-4 w-full flex justify-center items-center">
+      <header
+        className={`${
+          location.pathname === "/"
+            ? "bg-white/30 backdrop-blur-lg border border-white/20 absolute mt-4 w-full flex justify-center items-center"
+            : "bg-[#102262] w-full flex justify-center items-center h-16"
+        }`}>
         <nav>
           <ul className="flex text-white text-xl cursor-pointer mx-auto">
             <li className="m-2" style={{ color: "#D51C75" }}>
