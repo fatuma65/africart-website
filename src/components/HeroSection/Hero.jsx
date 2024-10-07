@@ -1,7 +1,6 @@
 import "./HomeSectionStyles.css";
 import { Link } from "react-router-dom";
 import Navbar from "../Navbar";
-import Header from "../Header/Header";
 const HomeSection = () => {
   return (
     <>
