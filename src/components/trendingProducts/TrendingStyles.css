@@ -1,0 +1,30 @@
+.buttons button {
+    padding: 12px;
+    margin: 10px;
+    width: 250px;
+    border-radius: .3rem;
+}
+.buttons {
+    display: flex;
+    font-size: 1.3rem;
+}
+.btn {
+    border: 1px solid #000;
+}
+.each-product img {
+    border-radius: .5rem;
+}
+.each-product {
+    font-size: 1rem;
+}
+
+@media screen and (min-width: 200px) and (max-width:640px){
+    .buttons {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .each-product {
+        font-size: 1.4rem;
+    }
+}

@@ -1,12 +1,24 @@
 import Footer from "../components/footer/Footer";
-
 import HomeSection from "../components/HeroSection/Hero";
+import Trending from "../components/TrendingProducts/Trending";
+import Header from '../components/Header/Header'
+import { useEffect, useState } from "react";
 
 const Home = () => {
+  const currentTheme = localStorage.getItem("current_theme");
+  const [theme, setTheme] = useState(currentTheme  ? currentTheme  : "light");
+
+  useEffect(() => {
+    // apply the preffered theme to the whole body
+    document.body.className = theme
+    localStorage.setItem("current_theme", theme);
+  }, [theme]);
   return (
     <>
-      <HomeSection />
-      <Footer />
+    <Header theme={theme} setTheme={setTheme} />
+    <HomeSection />
+    <Trending />
+    <Footer />
     </>
   );
 };
