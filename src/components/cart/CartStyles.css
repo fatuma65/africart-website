@@ -1,0 +1,9 @@
+.border-head {
+    border-bottom: 2px solid #ddd;
+}
+.shadows {
+    box-shadow: 0 0 10px 10px rgba(0,0,0,0.1);
+}
+.bx-x:hover {
+    background-color: #ddd;
+}

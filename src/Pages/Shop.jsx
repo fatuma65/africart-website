@@ -1,7 +1,16 @@
+import Footer from "../components/footer/Footer"
+import Header from "../components/Header/Header"
+import Navbar from "../components/Navbar"
+import ProductList from "../components/products/ProductList"
 
 const Shop = () => {
   return (
-    <div>Shop</div>
+   <>
+   <Header/>
+   <Navbar />
+   <ProductList />
+   <Footer/>
+   </>
   )
 }
 

@@ -4,8 +4,10 @@ import Shop from "./Pages/Shop";
 import About from "./Pages/About";
 import Blog from "./Pages/Blog";
 import Contact from "./Pages/Contact";
-import ProductDetails from "./Pages/ProductDetails";
-
+import Detail from './Pages/DetailsOfProduct';
+import CartPage from "./Pages/CartPage";
+import Checkout from "./Pages/Checkout";
+import PaymentSuccess from "./components/PaymentSuccess";
 
 function App() {
   return (
@@ -16,7 +18,10 @@ function App() {
         <Route path="/about" element={<About />}></Route>
         <Route path="/blog" element={<Blog />}></Route>
         <Route path="/contact" element={<Contact />}></Route>
-        <Route path="/product/:id" element={<ProductDetails />}></Route>
+        <Route path="/cart" element={<CartPage />}></Route>
+        <Route path="/checkout" element={<Checkout />}></Route>
+        <Route path="/payment-success" element={<PaymentSuccess />}></Route>
+        <Route path="/product/:id" element={<Detail />}></Route>
       </Routes>
     </>
   );

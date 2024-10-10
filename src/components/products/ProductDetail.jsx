@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 import "./Details.css";
 import { useParams } from "react-router-dom";
 import RelatedProducts from "./Related.jsx";
+import {useProduct, useCart} from "../../contexts/customHook.js";
 
 const ProductDetail = () => {
   let params = useParams();
-  console.log(params);
   let numberId = parseInt(params.id);
   const [singleProduct, setSingleProduct] = useState(null);
   const [loading, setLoading] = useState(false);
+  const { convertNumber} =
+    useProduct();
+    const {handleAddToCart} = useCart()
 
   const fetchSingleProduct = async () => {
     try {
@@ -16,7 +19,6 @@ const ProductDetail = () => {
       const response = await fetch(
         `https://africart-strapi-api.onrender.com/api/products/${numberId}/?populate=*`
       );
-      console.log(response);
       if (response.ok) {
         const data = await response.json();
         setSingleProduct(data.data);
@@ -29,6 +31,8 @@ const ProductDetail = () => {
   useEffect(() => {
     fetchSingleProduct();
   }, [numberId]);
+
+  console.log(singleProduct)
 
   return (
     <>
@@ -57,17 +61,21 @@ const ProductDetail = () => {
                 }
               </h4>
               <h2 className="text-[red] font-semibold p-2 text-xl">
-                UGX {singleProduct.attributes.price}
+                UGX {convertNumber(singleProduct.attributes.price)}
               </h2>
               <p className="p-2 text-base ">
                 {singleProduct.attributes.description}
               </p>
-              <div className="quantity-buttons ">
-                <button className="">-</button>
+              {/* <div className="quantity-buttons ">
+                <button className="" onClick={() => decreaseQuantity(singleProduct.id)}>
+                  -
+                </button>
                 <span className="text-2xl ">1</span>
-                <button>+</button>
-              </div>
-              <button className=" m-4 bg-[#102262] text-white font-semibold text-center w-64">
+                <button onClick={() => incrementQuantity(singleProduct.id)}>+</button>
+              </div> */}
+              <button
+                className=" m-2 bg-[#102262] text-white font-semibold text-center w-96 hover:bg-[#222]"
+                onClick={() => handleAddToCart(singleProduct)}>
                 Add to Cart
               </button>
             </div>

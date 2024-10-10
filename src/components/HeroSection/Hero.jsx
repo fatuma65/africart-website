@@ -1,8 +1,12 @@
 import "./HomeSectionStyles.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../Navbar";
-import Header from "../Header/Header";
 const HomeSection = () => {
+  const navigate = useNavigate();
+
+  const redirectToProductsPage = () => {
+    navigate("/shop");
+  };
   return (
     <>
       <div className="home-section bg-cover h-screen bg-center relative">
@@ -17,7 +21,9 @@ const HomeSection = () => {
             cultural legacy and be a part of the movement to empower the
             continent&#39;s creators.
           </p>
-          <button className="bg-[#102262] text-center p-3 w-48 mx-auto font-semibold rounded-lg hover:outline hover:bg-inherit">
+          <button
+            className="bg-[#102262] text-center p-3 w-48 mx-auto font-semibold rounded-lg hover:outline hover:bg-inherit"
+            onClick={redirectToProductsPage}>
             <Link to={"/shop"}>Shop Now</Link>
           </button>
         </div>
