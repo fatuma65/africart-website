@@ -11,7 +11,7 @@ const Trending = () => {
 
   return (
     <>
-      <div className="bg-[#D9D9D9]">
+      <div >
         <h1 className="text-4xl font-bold text-center p-4">
           Trending <span className="text-[#D51C75]">Products</span>
         </h1>
