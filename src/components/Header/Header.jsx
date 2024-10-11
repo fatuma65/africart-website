@@ -2,8 +2,14 @@
 import "boxicons";
 import "./Header.css";
 import { useState } from "react";
-const Header = ({ theme, setTheme }) => {
+import { useCart} from "../../contexts/customHook";
+import { useNavigate } from "react-router-dom";
+import { useTheme } from "../../contexts/ThemeContext";
+const Header = () => {
+  const {cartItems} = useCart()
   const [searchText, setSearchText] = useState("");
+  const {theme, setTheme} = useTheme()
+  const navigate = useNavigate()
   const toggle_mode = () => {
     theme === "light" ? setTheme("dark") : setTheme("light");
   };
@@ -11,6 +17,10 @@ const Header = ({ theme, setTheme }) => {
   const handleInputText = (e) => {
     setSearchText(e.target.value);
   };
+
+  const navigateToCart = () => {
+    navigate('/cart')
+  }
 
   return (
     <div className="header">
@@ -32,14 +42,14 @@ const Header = ({ theme, setTheme }) => {
           <div className="relative py-0 px-2">
             <div className="mb-8 absolute left-9 pb-4 ">
               <p className="flex h-4 w-4 items-center justify-center rounded-full bg-red-500  text-xs text-white cart-count-icon">
-                0
+                {cartItems.length}
               </p>
             </div>
-            <i className="bx bx-cart-alt cart-icon"></i>
+            <i className="bx bx-cart-alt cart-icon" onClick={navigateToCart}></i>
           </div>
         </div>
         <i
-          className={`bx bx-user-circle text-4xl ${
+          className={`bx bx-user-circle text-4xl ${ 
             theme === "light" ? "icon-white" : "icon-black"
           } `}></i>
         {theme === "light" ? (

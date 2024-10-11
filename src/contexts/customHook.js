@@ -1,7 +1,12 @@
 import { useContext } from "react";
 import { ProductContext } from "./ProductContext";
+import { CartContext } from "./CartContext";
 
-const useProduct = () => {
+export const useProduct = () => {
   return useContext(ProductContext);
 };
-export default useProduct;
+
+
+export const useCart = () => {
+  return useContext(CartContext);
+};

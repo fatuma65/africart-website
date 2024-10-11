@@ -1,13 +1,15 @@
 import "./TrendingStyles.css";
 import "boxicons";
-import useProduct from "../../contexts/customHook.js";
+import { useProduct } from "../../contexts/customHook.js";
 
 const Trending = () => {
-  const perProducts = 8;
-  const { products, handleTitle, handleViewNextProduct } = useProduct();
-
-  // to display only a few products on the page.
-  const displayedProducts = products.slice(0, perProducts);
+  const {
+    displayedProducts,
+    handleTitle,
+    handleViewNextProduct,
+    convertNumber,
+    displayRating,
+  } = useProduct();
 
   return (
     <>
@@ -40,14 +42,10 @@ const Trending = () => {
                 {handleTitle(product.attributes.productTitle)}
               </h3>
               <h4 className="text-[red] font-semibold p-2">
-                UGX {product.attributes.price}
+                UGX {convertNumber(product.attributes.price)}
               </h4>
               <div className="text-2xl text-[orange]">
-                <i className="bx bxs-star"></i>
-                <i className="bx bxs-star"></i>
-                <i className="bx bxs-star"></i>
-                <i className="bx bxs-star"></i>
-                <i className="bx bxs-star"></i>
+                {displayRating(product.attributes.rating)}
               </div>
               <button
                 className="bg-[#102262] text-white p-2 m-2 font-semibold w-full text-center mx-auto hover:bg-[#000]"
