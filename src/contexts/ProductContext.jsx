@@ -32,8 +32,8 @@ export const ProductProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchApiProducts()
-  }, [])
+    fetchApiProducts();
+  }, []);
 
   // For paginating
   useEffect(() => {

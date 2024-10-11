@@ -32,8 +32,6 @@ const ProductDetail = () => {
     fetchSingleProduct();
   }, [numberId]);
 
-  console.log(singleProduct)
-
   return (
     <>
       {loading && <p className="text-5xl font-bold h-screen flex items-center justify-center">Loading....</p>}
