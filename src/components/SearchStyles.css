@@ -1,0 +1,19 @@
+.search-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.3);
+    width: 45%;
+    margin: 0 auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    margin-top: 70px;
+    border-radius: 5px;
+    margin-left: 370px;
+    padding: 15px;
+}
+.search-container p {
+    margin: 5px;
+}

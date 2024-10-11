@@ -1,6 +1,5 @@
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 export const ProductContext = createContext();
 
 // eslint-disable-next-line react/prop-types
@@ -8,13 +7,14 @@ export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const perProducts = 8;
-  const [displayedProducts, setDisplayedProducts] = useState([])
-  const [currentPage, setCurrentPage] = useState(0)
-  
+  const [displayedProducts, setDisplayedProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+
   // to display only a few products on the page.
   // const displayedProducts = products.slice(0, perProducts);
 
   const navigate = useNavigate();
+
 
   const fetchApiProducts = async () => {
     setIsLoading(true);
@@ -32,27 +32,29 @@ export const ProductProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchApiProducts()
-  }, [])
+    fetchApiProducts();
+  }, []);
 
   // For paginating
   useEffect(() => {
-    const startIndexOfProducts = currentPage * perProducts
-    const lastIndexOfProducts = currentPage + perProducts
-    setDisplayedProducts(products.slice(startIndexOfProducts, lastIndexOfProducts))
-  }, [perProducts, products, currentPage])
+    const startIndexOfProducts = currentPage * perProducts;
+    const lastIndexOfProducts = currentPage + perProducts;
+    setDisplayedProducts(
+      products.slice(startIndexOfProducts, lastIndexOfProducts)
+    );
+  }, [perProducts, products, currentPage]);
 
-  const  handleNextProducts = () => {
+  const handleNextProducts = () => {
     if ((currentPage + 1) * perProducts < products.length) {
-      setCurrentPage((prevPage) => prevPage + 1)
+      setCurrentPage((prevPage) => prevPage + 1);
     }
-  }
+  };
 
   const handleBackProducts = () => {
     if (currentPage > 0) {
-      setCurrentPage((prevpage) => prevpage - 1)
+      setCurrentPage((prevpage) => prevpage - 1);
     }
-  }
+  };
   // to show how many characters can be displayed on the products title.
   const handleTitle = (title) => {
     let preferredTitleLength = 20;
@@ -70,8 +72,6 @@ export const ProductProvider = ({ children }) => {
   const convertNumber = (price) => {
     return price?.toLocaleString();
   };
-
-  console.log(products);
 
   const displayRating = (rating) => {
     const fullStars = Math.floor(rating);

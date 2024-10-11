@@ -14,7 +14,7 @@ const ProductList = () => {
 
   return (
     <>
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <p className="text-5xl font-bold h-screen flex items-center justify-center">Loading...</p>}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:w-3/4 w-full mx-auto p-4 sm:p-6 md:p-8">
         {displayedProducts.map((product) => (
           <div key={product.id}>
