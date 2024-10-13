@@ -32,11 +32,9 @@ const ProductDetail = () => {
     fetchSingleProduct();
   }, [numberId]);
 
-  console.log(singleProduct)
-
   return (
     <>
-      {loading && <p className="text-2xl">Loading....</p>}
+      {loading && <p className="text-5xl font-bold h-screen flex items-center justify-center">Loading....</p>}
       <h1 className="font-semibold product-det text-2xl">Product Details</h1>
       <hr className="w-36 hr" />
       <div className=" mt-8 flex flex-col lg:flex-row lg:p-4 p-2 lg:justify-center">
