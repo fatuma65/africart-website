@@ -1,7 +1,16 @@
+import ContactPage from "../components/contact/ContactPage"
+import Footer from "../components/footer/Footer"
+import Navbar from "../components/Navbar"
+import Header from '../components/Header/Header'
 
 const Contact = () => {
   return (
-    <div>Contact</div>
+    <>
+    <Header />
+    <Navbar />
+    <ContactPage />
+    <Footer />
+    </>
   )
 }
 
