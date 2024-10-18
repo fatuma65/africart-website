@@ -1,3 +1,11 @@
 .home-section {
     background: url(../../assets/karim-manjra-fm9wqDNXyQ0-unsplash.jpg);
 }
+@media screen and (min-width:250px) and (max-width: 950px) {
+    .home-sec  p{
+        font-size: 22px;
+    }
+    .home-sec {
+        width: 100%;
+    }
+  }

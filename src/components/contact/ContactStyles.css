@@ -5,3 +5,23 @@
     background-color: #fff;
     box-shadow: 0 0 10px 0 rgba(0,0,0,0.4);
 }
+
+@media screen and (min-width:250px) and (max-width: 950px) {
+    .contact {
+        width: 100%;
+        margin-bottom: 150px;
+    }
+    .contact h3 {
+        font-size: 20px;
+    }
+    .contact-form {
+        width: 100%;
+        font-size: 20px;
+    }
+    .form-contact {
+        width: 100%;
+    }
+    .form-div button {
+        margin: 30px;
+    }
+  }
