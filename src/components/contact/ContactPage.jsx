@@ -36,16 +36,16 @@ const ContactPage = () => {
   };
   return (
     <>
-      <div className=" flex justify-center items-center contact h-5/6 m-16">
-        <div className="w-1/2 ">
+      <div className=" lg:flex lg:justify-center lg:items-center contact lg:h-5/6 lg:m-16">
+        <div className="lg:w-1/2 w-full">
           <h1 className="text-5xl font-bold m-4">Contact Us</h1>
           <h3 className="mt-6 m-4">
             Need to get in touch with us? Fill out the form with your inquiry.
           </h3>
         </div>
-        <div className="flex flex-col justify-center items-center contact-form p-6  ">
-          <form action="" className="">
-            <div className="flex ">
+        <div className="flex flex-col justify-center items-center contact-form lg:p-6  ">
+          <form action="" className=" form-contact">
+            <div className="lg:flex form-div">
               <div className="m-2 flex flex-col">
                 <label htmlFor="">Email</label>
                 <input
@@ -54,7 +54,7 @@ const ContactPage = () => {
                   required
                   value={contactForm.email}
                   placeholder="Enter your email"
-                  className="w-64 p-2 rounded outline-none bg-[#ddd]"
+                  className="lg:w-64 lg:p-2 p-4 rounded outline-none bg-[#ddd]"
                   onChange={handleChange}
                 />
               </div>
@@ -67,7 +67,7 @@ const ContactPage = () => {
                   value={contactForm.name}
                   placeholder="Enter your name"
                   onChange={handleChange}
-                  className="w-64 p-2 rounded outline-none bg-[#ddd]"
+                  className="lg:w-64 lg:p-2 p-4 rounded outline-none bg-[#ddd]"
                 />
               </div>
             </div>
@@ -80,7 +80,7 @@ const ContactPage = () => {
                 rows={5}
                 value={contactForm.messageDescription}
                 onChange={handleChange}
-                className="rounded outline-none bg-[#ddd] p-2"></textarea>
+                className="rounded outline-none bg-[#ddd] lg:p-2 p-4"></textarea>
             </div>
             <button
               className="bg-[#102262] w-full text-white p-2  rounded-2xl font-semibold"
