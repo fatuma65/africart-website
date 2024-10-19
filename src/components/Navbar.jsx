@@ -8,7 +8,7 @@ const Navbar = () => {
       <header
         className={`${
           location.pathname === "/"
-            ? "bg-white/30 backdrop-blur-lg border border-white/20 absolute mt-4 w-full flex justify-center items-center"
+            ? "bg-white/30 backdrop-blur-md border border-white/20 absolute h-14 mt-0 w-full flex justify-center items-center"
             : "bg-[#102262] w-full flex justify-center items-center h-16"
         }`}>
         <nav>
@@ -21,9 +21,6 @@ const Navbar = () => {
             </li>
             <li className="m-2">
               <Link to={"/about"}>About Us</Link>
-            </li>
-            <li className="m-2">
-              <Link to={"/blog"}>Blog</Link>
             </li>
             <li className="m-2">
               <Link to={"/contact"}>Contact Us</Link>
