@@ -11,10 +11,7 @@ export const ProductProvider = ({ children }) => {
   const [currentPage, setCurrentPage] = useState(0);
 
   // to display only a few products on the page.
-  // const displayedProducts = products.slice(0, perProducts);
-
   const navigate = useNavigate();
-
 
   const fetchApiProducts = async () => {
     setIsLoading(true);
@@ -22,8 +19,13 @@ export const ProductProvider = ({ children }) => {
       const response = await fetch(
         `https://africart-strapi-api.onrender.com/api/products/?populate=*`
       );
-      const data = await response.json();
-      setProducts(data.data);
+      console.log(response);
+      if (response.ok) {
+        const data = await response.json();
+        setProducts(data.data);
+      } else {
+        console.log("An error occured");
+      }
     } catch (error) {
       console.log("An Error occured", error);
     } finally {
@@ -108,7 +110,7 @@ export const ProductProvider = ({ children }) => {
           displayedProducts,
           perProducts,
           handleBackProducts,
-          handleNextProducts
+          handleNextProducts,
         }}>
         {children}
       </ProductContext.Provider>

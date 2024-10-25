@@ -1,6 +1,9 @@
 import "./TrendingStyles.css";
 import "boxicons";
 import { useProduct } from "../../contexts/customHook.js";
+import { useTheme } from "../../contexts/ThemeContext.jsx";
+import { useEffect, useState } from "react";
+import Spinner from "../Spinner.jsx";
 
 const Trending = () => {
   const {
@@ -9,11 +12,41 @@ const Trending = () => {
     handleViewNextProduct,
     convertNumber,
     displayRating,
+    isLoading,
   } = useProduct();
+  const { theme } = useTheme();
+
+  const [newProducts, setNewProducts] = useState([]);
+
+  // function to filter out the products based on the button being clicked.
+  const handleNewProducts = (type) => {
+    const today = new Date();
+
+    const recentProducts = displayedProducts.filter((product) => {
+      if (type === "new") {
+        const createdAt = new Date(product.attributes.createdAt);
+        // convert the day which is in milliseconds into days.
+        const dayDifference = (today - createdAt) / (1000 * 60 * 60 * 24);
+        // return the products which were created less than 36 days ago.
+        return dayDifference <= 36;
+      } else if (type === "featured") {
+        return product.attributes.rating >= 4;
+      } else if (type === "bestSeller") {
+        return product.attributes.price >= 20000;
+      } else {
+        return true;
+      }
+    });
+
+    setNewProducts(recentProducts);
+  };
+  useEffect(() => {
+    handleNewProducts("new");
+  }, [displayedProducts]);
 
   return (
     <>
-      <div className="bg-[#D9D9D9]">
+      <div>
         <h1 className="text-4xl font-bold text-center p-4">
           Trending <span className="text-[#D51C75]">Products</span>
         </h1>
@@ -24,12 +57,25 @@ const Trending = () => {
           craftmanship.
         </p>
         <div className="buttons mx-auto p-2 font-semibold lg:w-1/2">
-          <button className="bg-[#fff] btn">New Product</button>
-          <button className="text-white bg-[#D51C75]">Features Product</button>
-          <button className="bg-[#fff] btn">Best Seller</button>
+          <button
+            className={`${theme === "dark" ? "text-[#fff]" : ""}  btn`}
+            onClick={() => handleNewProducts("new")}>
+            New Products
+          </button>
+          <button
+            className="text-white bg-[#D51C75]"
+            onClick={() => handleNewProducts("featured")}>
+            Featured Products
+          </button>
+          <button
+            className={`${theme === "dark" ? "text-[#fff]" : ""}  btn`}
+            onClick={() => handleNewProducts("bestSeller")}>
+            Best Sellers
+          </button>
         </div>
+        {isLoading && <Spinner />}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:w-3/4 w-full mx-auto p-4 sm:p-6 md:p-8">
-          {displayedProducts.map((product) => (
+          {newProducts.map((product) => (
             <div key={product.id} className=" w-full p-2 each-product">
               <img
                 src={product.attributes.productImage.data.map(

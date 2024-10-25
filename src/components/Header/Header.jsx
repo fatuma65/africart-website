@@ -111,7 +111,7 @@ const Header = () => {
 =======
         </div>
 
-        <div className="icons flex">
+        <div className="icons flex gap-2">
           <div className="  flex justify-center items-center">
             <div className="relative py-0 px-2">
               <div className="mb-8 absolute left-9 pb-4 ">
@@ -124,10 +124,11 @@ const Header = () => {
                 onClick={navigateToCart}></i>
             </div>
           </div>
-          <i
-            className={`bx bx-user-circle text-4xl ${
-              theme === "light" ? "icon-white" : "icon-black"
-            } `}></i>
+            <i
+              className={`bx bx-user-circle text-4xl cursor-pointer ${
+                theme === "light" ? "icon-white" : "icon-black"
+              } `}
+              ></i>
           {theme === "light" ? (
             <i
               className="bx bxs-sun text-4xl cursor-pointer"

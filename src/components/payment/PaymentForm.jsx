@@ -4,6 +4,7 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import Spinner from "../Spinner";
 
 const PaymentForm = () => {
   const stripe = useStripe();
@@ -19,7 +20,7 @@ const PaymentForm = () => {
     const response = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: 'http://localhost:5174/payment-success'
+        return_url: 'http://localhost:5173/payment-success'
       }
     });
     console.log(response);
@@ -28,7 +29,7 @@ const PaymentForm = () => {
   };
   return (
     <>
-      {isLoading && <h1 className="p-16">Page is still loading</h1>}
+      {isLoading && <Spinner/>}
       <div className="container mx-auto p-16">
         <form onSubmit={handleSubmit}>
           <div className="card w-100 bg-base-100 bg-gray-200 shadow-xl rounded-lg">

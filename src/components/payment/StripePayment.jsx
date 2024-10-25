@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import PaymentForm from "./PaymentForm";
-import {useCart} from "../contexts/customHook";
+import PaymentForm from '../payment/PaymentForm';
+import {useCart} from "../../contexts/customHook";
+import Spinner from "../Spinner";
 
 const stripePromise = loadStripe(
   "pk_test_51Q6U2l2KhaiPAp5sogK0qyxtr72MyYm2DuP0vtDVuExXD2k1kQ0yGnAfsB48Glz56QUQt7IYIhX1IYgJjAFLPYnz00lHOJuULQ"
@@ -84,7 +85,7 @@ const StripePayment = () => {
   return (
     <>
     <div className="h-1/2">
-    {loading && <h1 className="text-2xl text-center font-bold">Loading</h1>}
+    {loading && <Spinner/>}
     </div>
       {clientSecret && (
         <Elements stripe={stripePromise} options={options}>

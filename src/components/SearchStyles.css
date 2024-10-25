@@ -14,6 +14,12 @@
     margin-left: 500px;
     padding: 15px;
 }
-.search-container p {
+.search-container li {
     margin: 5px;
+}
+
+@media screen and (min-width: 250px) and (max-width:960px) {
+    .found {
+        display: none;
+    }
 }
