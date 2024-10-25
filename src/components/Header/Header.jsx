@@ -2,7 +2,7 @@
 import "boxicons";
 import "./Header.css";
 import { useEffect, useState } from "react";
-import { useCart, useProduct } from "../../contexts/customHook";
+import { useAuth, useCart, useProduct } from "../../contexts/customHook";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../contexts/ThemeContext";
 import Search from "../Search";
@@ -11,8 +11,13 @@ const Header = () => {
   const { displayedProducts } = useProduct();
   const [searchText, setSearchText] = useState("");
   const [productsFiltered, setProductsFiltered] = useState([]);
+  const { userData, islogedIn } = useAuth();
   const { theme, setTheme } = useTheme();
   const navigate = useNavigate();
+  const redirect = useNavigate();
+  const handleClick = () => {
+    navigate("/signup");
+  };
   const toggle_mode = () => {
     theme === "light" ? setTheme("dark") : setTheme("light");
   };
@@ -61,21 +66,36 @@ const Header = () => {
               </div>
               <i
                 className="bx bx-cart-alt cart-icon"
-                onClick={navigateToCart}></i>
+                onClick={navigateToCart}
+              ></i>
             </div>
           </div>
-          <i
-            className={`bx bx-user-circle text-4xl ${
-              theme === "light" ? "icon-white" : "icon-black"
-            } `}></i>
+          {!islogedIn ? (
+            <i
+              onClick={handleClick}
+              className={`bx bx-user-circle text-4xl ${
+                theme === "light" ? "icon-white" : "icon-black"
+              } `}
+            ></i>
+          ) : (
+            <img
+              src={userData?.profilePicture?.url}
+              alt=""
+              width={35}
+              height={5}
+              className="rounded-3xl"
+            />
+          )}
           {theme === "light" ? (
             <i
               className="bx bxs-sun text-4xl cursor-pointer"
-              onClick={toggle_mode}></i>
+              onClick={toggle_mode}
+            ></i>
           ) : (
             <i
               className="bx bxs-moon text-4xl cursor-pointer"
-              onClick={toggle_mode}></i>
+              onClick={toggle_mode}
+            ></i>
           )}
         </div>
       </div>
