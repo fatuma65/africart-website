@@ -2,11 +2,7 @@
 import "boxicons";
 import "./Header.css";
 import { useEffect, useState } from "react";
-<<<<<<< HEAD
 import { useAuth, useCart, useProduct } from "../../contexts/customHook";
-=======
-import { useCart, useProduct } from "../../contexts/customHook";
->>>>>>> cf23b59 (implement search functionality)
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../contexts/ThemeContext";
 import Search from "../Search";
@@ -15,18 +11,12 @@ const Header = () => {
   const { displayedProducts } = useProduct();
   const [searchText, setSearchText] = useState("");
   const [productsFiltered, setProductsFiltered] = useState([]);
-<<<<<<< HEAD
   const { userData, islogedIn } = useAuth();
   const { theme, setTheme } = useTheme();
   const navigate = useNavigate();
-  const redirect = useNavigate();
   const handleClick = () => {
     navigate("/signup");
   };
-=======
-  const { theme, setTheme } = useTheme();
-  const navigate = useNavigate();
->>>>>>> cf23b59 (implement search functionality)
   const toggle_mode = () => {
     theme === "light" ? setTheme("dark") : setTheme("light");
   };
@@ -63,7 +53,6 @@ const Header = () => {
             onChange={handleInputText}
           />
           <i className="bx bx-search text-2xl mr-4"></i>
-<<<<<<< HEAD
         </div>
 
         <div className="icons flex">
@@ -108,38 +97,6 @@ const Header = () => {
             ></i>
           )}
         </div>
-=======
-        </div>
-
-        <div className="icons flex gap-2">
-          <div className="  flex justify-center items-center">
-            <div className="relative py-0 px-2">
-              <div className="mb-8 absolute left-9 pb-4 ">
-                <p className="flex h-4 w-4 items-center justify-center rounded-full bg-red-500  text-xs text-white cart-count-icon">
-                  {cartItems.length}
-                </p>
-              </div>
-              <i
-                className="bx bx-cart-alt cart-icon"
-                onClick={navigateToCart}></i>
-            </div>
-          </div>
-            <i
-              className={`bx bx-user-circle text-4xl cursor-pointer ${
-                theme === "light" ? "icon-white" : "icon-black"
-              } `}
-              ></i>
-          {theme === "light" ? (
-            <i
-              className="bx bxs-sun text-4xl cursor-pointer"
-              onClick={toggle_mode}></i>
-          ) : (
-            <i
-              className="bx bxs-moon text-4xl cursor-pointer"
-              onClick={toggle_mode}></i>
-          )}
-        </div>
->>>>>>> cf23b59 (implement search functionality)
       </div>
       <Search productsFiltered={productsFiltered} searchText={searchText} />
     </>
