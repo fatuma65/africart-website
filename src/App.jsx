@@ -6,9 +6,10 @@ import Contact from "./Pages/Contact";
 import Detail from './Pages/DetailsOfProduct';
 import CartPage from "./Pages/CartPage";
 import Checkout from "./Pages/Checkout";
-import PaymentSuccess from "./components/PaymentSuccess";
 import Login from "./components/LoginSignUp/Login";
 import SignUp from "./components/LoginSignUp/SignUp";
+import PaymentSuccess from "./components/payment/PaymentSuccess";
+
 function App() {
   return (
     <>

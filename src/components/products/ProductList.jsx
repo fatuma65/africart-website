@@ -1,5 +1,6 @@
 import { useProduct } from "../../contexts/customHook";
 import { useTheme } from "../../contexts/ThemeContext";
+import Spinner from "../Spinner";
 
 const ProductList = () => {
   const {
@@ -17,9 +18,7 @@ const ProductList = () => {
   return (
     <>
       {isLoading && (
-        <p className="text-5xl font-bold h-screen flex items-center justify-center">
-          Loading...
-        </p>
+        <Spinner />
       )}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:w-3/4 w-full mx-auto p-4 sm:p-6 md:p-8">
         {displayedProducts.map((product) => (
@@ -29,7 +28,7 @@ const ProductList = () => {
                 (image) => image.attributes.url
               )}
               alt="African artifact"
-              className="lg:h-52 h-64 w-full"
+              className="lg:h-52 h-64 w-full rounded"
             />
             <h3
               className={` ${

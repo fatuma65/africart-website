@@ -8,20 +8,18 @@ const Search = ({ productsFiltered, searchText }) => {
   };
   return (
     <div className={`${searchText.length !== 0 && "search-container"}`}>
-      {productsFiltered.length === 0 ? (
-        <p>No Product Found</p>
-      ) : (
+      {productsFiltered.length !== 0 ? (
         searchText &&
         productsFiltered.map((product) => (
-          <div key={product.id}>
-            <p
+          <ul key={product.id}>
+            <li
               onClick={() => handleProduct(product.id)}
-              className="cursor-pointer">
+              className="cursor-pointer text-black">
               {product.attributes.productTitle}
-            </p>
-          </div>
+            </li>
+          </ul>
         ))
-      )}
+      ) : <p className='found'>No Product Found</p>}
     </div>
   );
 };

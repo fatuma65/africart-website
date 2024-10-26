@@ -8,7 +8,7 @@
     display: flex;
     font-size: 1.3rem;
 }
-.btn {
+body.light .btn {
     border: 1px solid #000;
 }
 .each-product img {

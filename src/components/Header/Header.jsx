@@ -14,7 +14,6 @@ const Header = () => {
   const { userData, islogedIn } = useAuth();
   const { theme, setTheme } = useTheme();
   const navigate = useNavigate();
-  const redirect = useNavigate();
   const handleClick = () => {
     navigate("/signup");
   };

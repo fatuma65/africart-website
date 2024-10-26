@@ -36,7 +36,7 @@ const RelatedProducts = ({ singleProduct, setLoading }) => {
                     (image) => image.attributes.url
                   )}
                   alt="Product Image"
-                  className="lg:h-52 h-64 w-full"
+                  className="lg:h-52 h-64 w-full rounded"
                 />
                 <h1 className="text-[#000] text-xl font-bold p-2">
                   {handleTitle(filtered.attributes.productTitle)}
