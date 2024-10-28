@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaUser, FaLock, FaEnvelope } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -9,16 +9,14 @@ import Footer from "../footer/Footer";
 import Navbar from "../../components/Navbar";
 
 const SignUp = () => {
-   // const [profilePicture ,setprofilePicture]= useState(null); 
   const { handlePicture, postNewUser,inputData, setInputData} = useAuth()
-  const [error, setError] = useState('');
   const navigate = useNavigate();
-  // const [inputData, setInputData] = useState(data);
   const [msg, setMsg] = useState(false);
 
   const handleInput = (event) => {
     setInputData({ ...inputData, [event.target.name]: event.target.value });
   };
+
   const submit = (event) => {
     event.preventDefault();
     if ( !inputData.firstname || !inputData.lastname || !inputData.username || !inputData.email || !inputData.password ||!inputData.confirmPassword) {
@@ -30,7 +28,6 @@ const SignUp = () => {
       setTimeout(() => {
         setMsg(false);
       }, 4000);
-     
     }
   }
   return (
@@ -38,11 +35,9 @@ const SignUp = () => {
     <Header/>
     <Navbar/>
     <div className="wrapper">
-    <div className="form-box signUp">
-      <form  className="container">
+      <form  className="">
         <h2>{msg ? inputData?.firstname + " : SignUp Successfully!" : null}</h2>
-
-        <h1>Sign Up</h1>
+        <h1 className="font-bold text-white">Sign Up</h1>
         <div className="input-box">
           <input
             type="text"
@@ -69,7 +64,6 @@ const SignUp = () => {
           <input
             type="text"
             placeholder="Username"
-            autocomplete="username"
             required
             name="username"
             value={inputData?.username}
@@ -117,8 +111,6 @@ const SignUp = () => {
             onChange={handlePicture}
           />
         </div>
-       
-
         <div className="remember-forgot">
           <label>
             <input type="checkbox" />I agree to terms & conditions
@@ -128,17 +120,15 @@ const SignUp = () => {
         <button onClick={submit}>Signup</button>
         <div className="register-link">
           <p>
-            Already have an account ?{" "}
+            Already have an account?{" "}
             <Link to={"/login"}>Login
               {" "}
-            
             </Link>
           </p>
         
         </div>
       </form>
     </div>
-  </div>
   <Footer/>
   </>
   )

@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
-import { createContext, useContext, useState, useEffect } from "react";
+import {useContext, useState, useEffect } from "react";
 
-export const ThemeContext = createContext();
-
+import { ThemeContext } from "./context";
 export const ThemeProvider = ({ children }) => {
   const currentTheme = localStorage.getItem("current_theme");
   const [theme, setTheme] = useState(currentTheme ? currentTheme : "light");

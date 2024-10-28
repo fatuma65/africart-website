@@ -72,7 +72,7 @@ const Header = () => {
           {!islogedIn ? (
             <i
               onClick={handleClick}
-              className={`bx bx-user-circle text-4xl ${
+              className={`bx bx-user-circle text-4xl cursor-pointer ${
                 theme === "light" ? "icon-white" : "icon-black"
               } `}
             ></i>
@@ -81,8 +81,8 @@ const Header = () => {
               src={userData?.profilePicture?.url}
               alt=""
               width={35}
-              height={5}
-              className="rounded-3xl"
+              height={3}
+              className="rounded-3xl mx-auto cursor-pointer"
             />
           )}
           {theme === "light" ? (
