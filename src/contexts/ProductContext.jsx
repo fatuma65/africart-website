@@ -1,7 +1,6 @@
-import { createContext, useState, useEffect } from "react";
+import {useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-export const ProductContext = createContext();
-
+import { ProductContext } from "./context";
 // eslint-disable-next-line react/prop-types
 export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
@@ -39,10 +38,8 @@ export const ProductProvider = ({ children }) => {
 
   // For paginating
   useEffect(() => {
-    const startIndexOfProducts = currentPage * perProducts;
-    const lastIndexOfProducts = currentPage + perProducts;
     setDisplayedProducts(
-      products.slice(startIndexOfProducts, lastIndexOfProducts)
+      products.slice(0,8)
     );
   }, [perProducts, products, currentPage]);
 

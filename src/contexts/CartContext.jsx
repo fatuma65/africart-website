@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
-import { createContext, useEffect, useState } from "react";
-
-export const CartContext = createContext();
+import {useEffect, useState } from "react";
+import { CartContext } from "./context";
 
 export const CartProvider = ({ children }) => {
   const itemsInStorage = localStorage.getItem("cartItems");

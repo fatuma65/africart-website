@@ -1,30 +1,29 @@
- 
-.wrapper{
+ .wrapper{
   position: relative;
-  width:420px;
-  height: auto;
-  background:#102262;
   border-radius: 10px;
   color: #fff;
   display: flex;
   translate: height .2s ease;
   justify-content: center;
-  margin-left: 380px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  padding: 20px;
   align-items: center;
 } 
 
 .wrapper .form-box{
   width: 100%;
-  padding: 40px;
+  border: 10px solid #000;
 }
 
 .wrapper.active .form-box.signUp{
   transition: none;
   translate: -400px;
 }
-
+form {
+  background:#102262;
+  padding: 10px;
+  width: 450px;
+  border-radius: 16px;
+}
 
 form h1{
   font-size: 36px;
@@ -35,8 +34,7 @@ form h1{
 form .input-box{
   position: relative;
   width: 100%;
-  min-height: 50px;
-  margin: 30px 0;
+  margin: 10px 0;
 }
 .input-box input{
   width: 100%;
@@ -47,8 +45,8 @@ form .input-box{
   border: 2px solid rgb(255, 255,255, .1);
   border-radius: 40px;
   font-size: 16px;
+  padding: 15px;
   color: #fff;
-  padding: 20px 45px 20px 20px;
   font-size: 16px;
   color: #fff;
 }
@@ -66,7 +64,7 @@ form .remember-forgot{
   display: flex;
   justify-content: space-between;
   font-size: 14.5px;
-  margin: -15px 0 15px;
+  padding: 10px;
 }
 .remember-forgot label input{
   accent-color: #FB84BD;
@@ -87,9 +85,10 @@ form button{
   font-weight: 700;
  }
  form .register-link{
-  font-size: 14.5px;
+  font-size: 1.1rem;
   text-align: center;
   margin: 20px 0 15px;
+
  }
  .register-link p a {
   color:#D51C75;
@@ -97,8 +96,8 @@ form button{
   font-weight: 600;
  }
 .google-button{
-  margin-top: 10px;
-  width: 100%;
-  align-items: center;
-  padding-left: 70px;
+  padding: 10px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
 }

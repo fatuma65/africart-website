@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { ProductContext } from "./ProductContext";
-import { CartContext } from "./CartContext";
-import { AuthContext } from "./AuthContext";
+import { ProductContext } from './context';
+import { CartContext } from "./context";
+import { AuthContext } from "./context";
 
 export const useProduct = () => {
   return useContext(ProductContext);
