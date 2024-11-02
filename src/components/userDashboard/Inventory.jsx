@@ -75,7 +75,6 @@ const Inventory = () => {
     }
   };
 
-  console.log(userProducts)
   return (
     <>
       <div className="mt-6 mr-8 gap-2 flex justify-end">
@@ -86,7 +85,7 @@ const Inventory = () => {
           Add Product
         </button>
       </div>
-      {(showProducts && isEditing) && (
+      {(showProducts ) && (
         <div className="fixed inset-0 flex-col flex justify-center items-center bg-black bg-opacity-50 z-50">
           <div className="bg-white rounded-lg max-w-lg items-center flex justify-center p-4 relative">
             <button
