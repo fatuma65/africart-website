@@ -6,17 +6,20 @@ import { useAuth, useCart, useProduct } from "../../contexts/customHook";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../contexts/ThemeContext";
 import Search from "../Search";
+import { Link } from "react-router-dom";
 const Header = () => {
   const { cartItems } = useCart();
   const { displayedProducts } = useProduct();
   const [searchText, setSearchText] = useState("");
   const [productsFiltered, setProductsFiltered] = useState([]);
-  const { userData, islogedIn } = useAuth();
+  const { userData, islogedIn, logoutUser } = useAuth();
   const { theme, setTheme } = useTheme();
   const navigate = useNavigate();
+  const redirect = useNavigate();
   const handleClick = () => {
     navigate("/signup");
   };
+
   const toggle_mode = () => {
     theme === "light" ? setTheme("dark") : setTheme("light");
   };
@@ -38,19 +41,32 @@ const Header = () => {
     navigate("/cart");
   };
 
+  const navigateToDashboard = () => {
+    redirect("/user");
+  };
   return (
     <>
       <div className="header">
         <h2>
-          Afri<span className="logo">Cart</span>
+          <Link to={"/"}>
+            Afri<span className="logo">Cart</span>
+          </Link>
         </h2>
         <div className="search-box ">
-          <input
+          {/* <input
             type="text"
             name="searchText"
             placeholder="Search Products Here"
             value={searchText}
             onChange={handleInputText}
+          /> */}
+          <input
+            type="text"
+            placeholder="Search Products"
+            value={searchText}
+            name="searchText"
+            onChange={handleInputText}
+            className="input input-bordered"
           />
           <i className="bx bx-search text-2xl mr-4"></i>
         </div>
@@ -65,36 +81,58 @@ const Header = () => {
               </div>
               <i
                 className="bx bx-cart-alt cart-icon"
-                onClick={navigateToCart}
-              ></i>
+                onClick={navigateToCart}></i>
             </div>
           </div>
           {!islogedIn ? (
-            <i
-              onClick={handleClick}
-              className={`bx bx-user-circle text-4xl cursor-pointer ${
-                theme === "light" ? "icon-white" : "icon-black"
-              } `}
-            ></i>
+            <>
+              <details className="dropdown dropdown-end">
+                <summary className="flex">
+                  <i
+                    className={`bx bx-user-circle text-4xl cursor-pointer ${
+                      theme === "light" ? "icon-white" : "icon-black"
+                    } `}></i>
+                </summary>
+                <ul className="menu dropdown-content bg-base-100 text-white rounded z-[1] w-32 p-2 ">
+                  <li>
+                    <a onClick={handleClick}>My Account</a>
+                  </li>
+                  <li>
+                    <a>Support</a>
+                  </li>
+                </ul>
+              </details>
+            </>
           ) : (
-            <img
-              src={userData?.profilePicture?.url}
-              alt=""
-              width={35}
-              height={3}
-              className="rounded-3xl mx-auto cursor-pointer"
-            />
+            <>
+              <details className="dropdown dropdown-end">
+                <summary className="flex flex-row  items-center">
+                  <img
+                    src={userData?.profilePicture?.url}
+                    alt=""
+                    className="user-image mx-auto cursor-pointer"
+                  />
+                </summary>
+                <ul className="menu dropdown-content bg-base-100 text-white rounded z-[1] w-32 p-2 ">
+                  <li>
+                    <a onClick={navigateToDashboard}>My Account</a>
+                  </li>
+                  <li>
+                    <a onClick={logoutUser}>Logout</a>
+                  </li>
+                </ul>
+              </details>
+            </>
           )}
+
           {theme === "light" ? (
             <i
               className="bx bxs-sun text-4xl cursor-pointer"
-              onClick={toggle_mode}
-            ></i>
+              onClick={toggle_mode}></i>
           ) : (
             <i
               className="bx bxs-moon text-4xl cursor-pointer"
-              onClick={toggle_mode}
-            ></i>
+              onClick={toggle_mode}></i>
           )}
         </div>
       </div>

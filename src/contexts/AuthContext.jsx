@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AuthContext } from "./context";
+import { useNavigate } from "react-router-dom";
 export const AuthProvider = ({ children }) => {
   const [isloading, setIsloading] = useState(false);
   const [profilePicture, setProfilePicture] = useState(null);
@@ -12,16 +13,24 @@ export const AuthProvider = ({ children }) => {
     password: "",
     confirmPassword: "",
   });
+
   const handlePicture = (e) => {
     setProfilePicture(e.target.files[0]);
   };
   const storedId = localStorage.getItem("Id");
+  const navigateHome = useNavigate();
+
   const storedUser = localStorage.getItem("userDetails");
   const [islogedIn, setIslogedIn] = useState(false);
   const [userId, setUserId] = useState(storedId ? storedId : null);
   const [userData, setUserData] = useState(
     storedUser ? JSON.parse(storedUser) : null
   );
+  const [is_Artist, setIsArtist] = useState(false);
+  const [artistData, setArtist] = useState(null);
+  const handleIsArtist = () => {
+    setIsArtist(!is_Artist);
+  };
   const formData = new FormData();
   formData.append("files", profilePicture);
 
@@ -49,12 +58,29 @@ export const AuthProvider = ({ children }) => {
             password: inputData.password,
             confirmPassword: inputData.confirmPassword,
             profilePicture: profileId,
+            is_artist: Boolean(is_Artist),
           }),
           headers: { "Content-type": "application/json" },
         }
       );
       const posted = await postUserData.json();
-      console.log(posted)
+
+      if (is_Artist) {
+        const isArtistResponse = await fetch(
+          "https://africart-strapi-api.onrender.com/api/artists",
+          {
+            method: "POST",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify({
+              data: {
+                users_permissions_user: posted.user,
+              },
+            }),
+          }
+        );
+        const isArtistData = await isArtistResponse.json();
+        console.log(isArtistData);
+      }
     } catch (error) {
       console.log(error);
     } finally {
@@ -72,8 +98,9 @@ export const AuthProvider = ({ children }) => {
       const data = await response.json();
       if (data) {
         setUserData(data);
-        localStorage.setItem("userDetails", JSON.stringify(data));
+        setArtist(data.artist);
         setIslogedIn(true);
+        localStorage.setItem("userDetails", JSON.stringify(data));
       }
     }
   };
@@ -98,9 +125,19 @@ export const AuthProvider = ({ children }) => {
     const data = await response.json();
     if (data.user && data.user.id) {
       setUserId(data.user.id);
+      localStorage.setItem("token", data.jwt);
       localStorage.setItem("Id", JSON.stringify(data.user.id));
-      fetchUser()
+      localStorage.setItem("isArtist", JSON.stringify(data.user.is_artist));
+      fetchUser();
     }
+  };
+  const logoutUser = () => {
+    setIslogedIn(false);
+    setUserId(null);
+    setUserData(null);
+    localStorage.clear();
+    navigateHome('/')
+    
   };
   return (
     <AuthContext.Provider
@@ -116,6 +153,10 @@ export const AuthProvider = ({ children }) => {
         userId,
         userData,
         islogedIn,
+        is_Artist,
+        handleIsArtist,
+        artistData,
+        logoutUser,
       }}>
       {children}
     </AuthContext.Provider>

@@ -28,7 +28,7 @@ const Trending = () => {
         // convert the day which is in milliseconds into days.
         const dayDifference = (today - createdAt) / (1000 * 60 * 60 * 24);
         // return the products which were created less than 36 days ago.
-        return dayDifference <= 36;
+        return dayDifference <= 45;
       } else if (type === "featured") {
         return product.attributes.rating >= 4;
       } else if (type === "bestSeller") {
@@ -58,17 +58,17 @@ const Trending = () => {
         </p>
         <div className="buttons mx-auto p-2 font-semibold lg:w-1/2">
           <button
-            className={`${theme === "dark" ? "text-[#fff]" : ""}  btn`}
+            className={`${theme === "dark" ? "text-[#fff]" : ""}  btn bg-white text-black hover:text-white`}
             onClick={() => handleNewProducts("new")}>
             New Products
           </button>
           <button
-            className="text-white bg-[#D51C75]"
+            className="text-white btn bg-[#D51C75]"
             onClick={() => handleNewProducts("featured")}>
             Featured Products
           </button>
           <button
-            className={`${theme === "dark" ? "text-[#fff]" : ""}  btn`}
+            className={`${theme === "dark" ? "text-[#fff]" : ""}  btn  bg-white text-black hover:text-white`}
             onClick={() => handleNewProducts("bestSeller")}>
             Best Sellers
           </button>
@@ -94,7 +94,7 @@ const Trending = () => {
                 {displayRating(product.attributes.rating)}
               </div>
               <button
-                className="bg-[#102262] text-white p-2 m-2 font-semibold w-full text-center mx-auto hover:bg-[#000]"
+                className="bg-[#102262] text-white btn  m-2 font-semibold w-full text-center mx-auto hover:bg-[#000]"
                 onClick={() => handleViewNextProduct(product.id)}>
                 View Product
               </button>

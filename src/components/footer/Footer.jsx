@@ -29,11 +29,11 @@ const Footer = () => {
               type="email"
               placeholder="Email"
               value={email}
-              className="lg:p-2 m-4"
+              className="lg:p-2 m-4 bg-white"
               onChange={handleEmail}
             />
             <button
-              className="bg-[#102262] p-2 text-white font-semibold text-center"
+              className="bg-[#102262] p-2 ml-4 text-white font-semibold text-center"
               onClick={handleSubmit}>
               Send
             </button>

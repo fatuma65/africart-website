@@ -1,24 +1,48 @@
-import {useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { ProductContext } from "./context";
+
 // eslint-disable-next-line react/prop-types
 export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const perProducts = 8;
   const [displayedProducts, setDisplayedProducts] = useState([]);
+  const [displayedCategories, setDisplayedCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
+  const [showProducts, setShowProducts] = useState(false);
+  const isArtist = localStorage.getItem("isArtist");
+  const parseArtist = JSON.parse(isArtist);
+  const [artistProduct, setArtistProduct] = useState({
+    productTitle: "",
+    description: "",
+    price: 0,
+    category: "",
+    rating: 0,
+  });
 
+  const [productImage, setProductImage] = useState(null);
+  const [refreshProducts, setRefreshProducts] = useState(false);
+  const token = localStorage.getItem("token");
+  const [isEditing, setIsEditing] =useState(false)
+  const [userProducts, setUserProducts] = useState([]);
+
+  const handlePicture = (e) => {
+    setProductImage(e.target.files[0]);
+  };
+  const handleInput = (event) => {
+    setArtistProduct({ ...artistProduct, [event.target.name]: event.target.value });
+  };
   // to display only a few products on the page.
   const navigate = useNavigate();
-
+  const formData = new FormData();
+  formData.append("files", productImage);
   const fetchApiProducts = async () => {
     setIsLoading(true);
     try {
       const response = await fetch(
         `https://africart-strapi-api.onrender.com/api/products/?populate=*`
       );
-      console.log(response);
       if (response.ok) {
         const data = await response.json();
         setProducts(data.data);
@@ -36,15 +60,16 @@ export const ProductProvider = ({ children }) => {
     fetchApiProducts();
   }, []);
 
-  // For paginating
   useEffect(() => {
+    const startIndexOfProducts = currentPage * perProducts;
+    const lastIndexOfProducts = currentPage + perProducts;
     setDisplayedProducts(
-      products.slice(0,8)
+      products.slice(startIndexOfProducts, lastIndexOfProducts)
     );
-  }, [perProducts, products, currentPage]);
-
+  }, [ products, currentPage]);
   const handleNextProducts = () => {
     if ((currentPage + 1) * perProducts < products.length) {
+      console.log('next clicked')
       setCurrentPage((prevPage) => prevPage + 1);
     }
   };
@@ -63,6 +88,10 @@ export const ProductProvider = ({ children }) => {
       return title;
     }
   };
+
+  useEffect(() => {
+    window.scroll(0,0)
+  }, [products])
 
   const handleViewNextProduct = (id) => {
     navigate(`/product/${id}`);
@@ -94,6 +123,16 @@ export const ProductProvider = ({ children }) => {
     return stars;
   };
 
+  const  handleCategory = async () => {
+    const response = await fetch ('https://africart-strapi-api.onrender.com/api/categories')
+    const data = await response.json()
+    setDisplayedCategories(data.data)
+  }
+
+  useEffect(() => {
+    handleCategory()
+  }, [])
+
   return (
     <>
       <ProductContext.Provider
@@ -108,6 +147,23 @@ export const ProductProvider = ({ children }) => {
           perProducts,
           handleBackProducts,
           handleNextProducts,
+          artistProduct,
+          handleInput,
+          productImage,
+          handlePicture,
+          displayedCategories,
+          showProducts, 
+          setShowProducts,
+          setIsLoading,
+          refreshProducts, 
+          setRefreshProducts,
+          token,
+          isEditing, 
+          setIsEditing,
+          setArtistProduct,
+          parseArtist,
+          userProducts, 
+          setUserProducts
         }}>
         {children}
       </ProductContext.Provider>
