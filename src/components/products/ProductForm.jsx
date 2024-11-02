@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import "../LoginSignUp/SignUp.css";
 import { useAuth, useProduct } from "../../contexts/customHook";
-import { useState, useEffect } from "react";
+import {  useEffect } from "react";
 
 const ProductForm = ({product}) => {
   const {
@@ -41,7 +41,8 @@ const ProductForm = ({product}) => {
 
     try {
       const uploadImage = await fetch(
-         "http://localhost:1337/api/upload",
+         "https://africart-strapi-api.onrender.com/api/upload",
+        //  "http://localhost:1337/api/upload",
         {
           method: 'POST',
           mode: "cors",
