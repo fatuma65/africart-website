@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
   const postNewUser = async () => {
     setIsloading(true);
     try {
-      const response = await fetch("http://localhost:1337/api/upload", {
+      const response = await fetch("https://africart-strapi-api.onrender.com/api/upload", {
         method: "POST",
         body: formData,
         mode: "cors",
