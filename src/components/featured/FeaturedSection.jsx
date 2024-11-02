@@ -4,7 +4,6 @@ import { useProduct } from "../../contexts/customHook"
 const Featured = () => {
     const {displayedProducts} = useProduct()
     const [newArrival, setNewArrival] = useState([])
-    console.log(displayedProducts)
 
     const handleNewArrivals = () => {
         // get todays date
@@ -16,7 +15,7 @@ const Featured = () => {
             // get the day difference and convert the milliseconds to day
             const dateDifference = (todayDate - productsCreatedDate) / (1000 * 60 * 60 *24)
             // return the products which were created in the last 28 days.
-            return dateDifference >= 28
+            return dateDifference >= 36
         })
         setNewArrival(featuredProducts)
     }

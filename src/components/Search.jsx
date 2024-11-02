@@ -14,12 +14,12 @@ const Search = ({ productsFiltered, searchText }) => {
           <ul key={product.id}>
             <li
               onClick={() => handleProduct(product.id)}
-              className="cursor-pointer text-black">
+              className="cursor-pointer text-search text-black">
               {product.attributes.productTitle}
             </li>
           </ul>
         ))
-      ) : <p className='found'>No Product Found</p>}
+      ) : searchText.length !== 0 && <p className='found'>Not Found</p>}
     </div>
   );
 };
