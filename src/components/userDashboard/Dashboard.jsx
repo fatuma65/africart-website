@@ -16,7 +16,6 @@ const {parseArtist, userProducts} = useProduct()
   const [showOrders, setShowOrders] = useState(false);
   const [showInventory, setShowInventory] = useState(false);
 
-
   const handleView = (type) => {
   if (type === "orders") {
       setShowOrders(true);
@@ -36,7 +35,7 @@ const {parseArtist, userProducts} = useProduct()
     <>
       <Header />
       {theme === "dark" && <hr />}
-      <div className="lg:flex dashboard justify-center">
+      <div className="lg:flex dashboard justify-center font-poppins">
         <div className="flex flex-col lg:w-80 main-dash bg-[#fff] m-2 rounded">
           <h1
             className="bg-[#102262] text-white font-bold text-xl mx-auto p-3 w-72 text-center rounded mt-12 cursor-pointer shadow-xl"
@@ -44,7 +43,7 @@ const {parseArtist, userProducts} = useProduct()
             Dashboard
           </h1>
           <div className="mx-auto mt-4 text-left m-12 cursor-pointer">
-            {!parseArtist ? (
+            {!parseArtist?.artist ? (
               <ul id="user-list">
                 <li onClick={() => handleView("orders")}>
                   Orders
@@ -85,7 +84,7 @@ const {parseArtist, userProducts} = useProduct()
             <Inventory />
           ) : (
             <>
-              {!parseArtist ? (
+              {!parseArtist?.artist ? (
                 <>
                   <div className="m-6 name-user">
                     <h2 className="text-4xl font-bold p-2">
@@ -105,9 +104,6 @@ const {parseArtist, userProducts} = useProduct()
                         Name: {userData?.firstname + " " + userData?.lastname}
                       </h3>
                       <h3 className="p-2">Email: {userData?.email}</h3>
-                      {/* <button className="p-2 bg-[#102262] text-white font-bold mx-auto w-24 hover:bg-[#000]">
-                        Edit
-                      </button> */}
                     </div>
                     <div className="m-6 name-user1 p-6">
                       <h2 className="text-2xl font-semibold p-2 main-h3">
@@ -115,9 +111,6 @@ const {parseArtist, userProducts} = useProduct()
                       </h2>
                       <h3 className="p-2">Your Default shipping address</h3>
                       <h3 className="p-2">Please add a shipping address</h3>
-                      {/* <button className="p-2 bg-[#102262] text-white font-bold mx-auto w-24 hover:bg-[#000]">
-                        Update
-                      </button> */}
                     </div>
                   </div>
                 </>

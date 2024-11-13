@@ -48,7 +48,7 @@ const SignUp = () => {
     <>
       <Header />
       {/* <Navbar /> */}
-      <div className="wrapper">
+      <div className="wrapper font-poppins">
         <form className="">
           <h2>
             {msg ? inputData?.firstname + " : SignUp Successfully!" : null}

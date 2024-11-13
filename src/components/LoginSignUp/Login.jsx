@@ -36,7 +36,7 @@ const Login = () => {
     <>
       <Header />
       <Navbar />
-      <div className="wrapper">
+      <div className="wrapper font-poppins">
         <form onSubmit={submit} className="">
           <h2>{msg ? inputData.email + " : Login Successfully!" : null}</h2>
 

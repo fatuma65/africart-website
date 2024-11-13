@@ -24,9 +24,9 @@ const Cart = () => {
   };
   return (
     <>
-      <h1 className="text-3xl font-bold p-2 text-center mt-4">Shopping Cart</h1>
+      <h1 className="text-3xl font-bold p-2 text-center mt-4 font-poppins">Shopping Cart</h1>
 
-      <div className="lg:flex mt-2 ">
+      <div className="lg:flex mt-2 font-poppins ">
         <table className="lg:w-3/5 lg:m-8 m- w-full ">
           <thead className=" m-2 p-2">
             <tr className=" border-head">

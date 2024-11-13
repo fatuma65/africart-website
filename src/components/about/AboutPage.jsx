@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const AboutPage = () => {
     return (
-        <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-6">
+        <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-6 font-poppins">
             <h1 className="text-4xl font-bold mb-6 ">About Us</h1>
             <div className="bg-white p-8 shadow-md rounded-md max-w-4xl flex flex-col md:flex-row">
                 <div className="md:w-1/2 pr-6">
