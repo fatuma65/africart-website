@@ -15,7 +15,7 @@ const Footer = () => {
   };
   return (
     <>
-      <div className="bg-[#102262] relative main-div">
+      <div className="bg-[#102262] relative main-div  font-poppins ">
         <div className="bg-[#D51C75] lg:w-3/4 w-full lg:flex mx-auto justify-between p-2 pink-bg">
           <div className="lg:p-4 p-2 text-white">
             <h1 className="text-4xl font-bold">Subscribe to our Newsletter</h1>

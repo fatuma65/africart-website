@@ -77,7 +77,7 @@ const Inventory = () => {
 
   return (
     <>
-      <div className="mt-6 mr-8 gap-2 flex justify-end">
+      <div className="mt-6 mr-8 gap-2 flex justify-end font-poppins">
         <button
           onClick={handleAddProducts}
           className=" bg-[#102262] flex items-center justify-center  gap-2 w-40 font-semibold text-white p-2 rounded hover:bg-[#000]">
@@ -115,10 +115,9 @@ const Inventory = () => {
                 <tr key={product.id}>
                   <th>{product.id}</th>
                   <td>{product.attributes.productTitle}</td>
-                  <td>
+                  <td className="text-black text-5xl">
                     {
-                      product.attributes?.category.data?.attributes
-                        ?.categoryTitle
+                      product.attributes?.category.data?.id
                     }
                   </td>
                   <td>{product.attributes.price}</td>
@@ -136,7 +135,6 @@ const Inventory = () => {
                     </button>
                   </div>
                 </tr>
-              // </>
             ))}
           </tbody>
         </table>

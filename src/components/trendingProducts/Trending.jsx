@@ -7,12 +7,12 @@ import Spinner from "../Spinner.jsx";
 
 const Trending = () => {
   const {
-    displayedProducts,
     handleTitle,
     handleViewNextProduct,
     convertNumber,
     displayRating,
     isLoading,
+    products,
   } = useProduct();
   const { theme } = useTheme();
 
@@ -22,17 +22,19 @@ const Trending = () => {
   const handleNewProducts = (type) => {
     const today = new Date();
 
-    const recentProducts = displayedProducts.filter((product) => {
+    const recentProducts = products
+    
+    .filter((product) => {
       if (type === "new") {
         const createdAt = new Date(product.attributes.createdAt);
         // convert the day which is in milliseconds into days.
         const dayDifference = (today - createdAt) / (1000 * 60 * 60 * 24);
         // return the products which were created less than 36 days ago.
-        return dayDifference <= 45;
+        return dayDifference <= 18;
       } else if (type === "featured") {
         return product.attributes.rating >= 4;
       } else if (type === "bestSeller") {
-        return product.attributes.price >= 20000;
+        return product.attributes.price >= 50000;
       } else {
         return true;
       }
@@ -42,12 +44,12 @@ const Trending = () => {
   };
   useEffect(() => {
     handleNewProducts("new");
-  }, [displayedProducts]);
+  }, [products]);
 
   return (
     <>
-      <div>
-        <h1 className="text-4xl font-bold text-center p-4">
+      <div className=" font-poppins ">
+        <h1 className="text-4xl font-bold text-center p-4 ">
           Trending <span className="text-[#D51C75]">Products</span>
         </h1>
         <p className="lg:w-1/2 text-center mx-auto p-2 text-2xl lg:text-base">

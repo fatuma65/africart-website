@@ -17,7 +17,7 @@ const ProductList = () => {
   return (
     <>
       {isLoading && <Spinner />}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:w-3/4 w-full mx-auto p-4 sm:p-6 md:p-8">
+      <div className="grid grid-cols-1  font-poppins sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:w-3/4 w-full mx-auto p-4 sm:p-6 md:p-8">
         {displayedProducts.map((product) => (
           <div key={product.id}>
             <img

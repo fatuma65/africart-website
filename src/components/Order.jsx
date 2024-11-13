@@ -100,7 +100,7 @@ const orderRequest = async () => {
   }, [userData]);
   return (
     <>
-        <div className="overflow-x-auto p-6">
+        <div className="overflow-x-auto p-6 font-poppins">
       {parseArtist ? (
         <div>
           <h2 className="text-2xl text-center font-bold">Products Ordered by Users</h2>
@@ -116,7 +116,7 @@ const orderRequest = async () => {
                 </tr>
               </thead>
               <tbody>
-                {orders.slice(0,7).map((order) => (
+                {orders.map((order) => (
                   <tr key={order.id}>
                     <td>{order.attributes?.products.data.map(item => item.attributes.productTitle).join(', ')}</td>
                     <td>{order.attributes?.products.data.map(item => item.attributes.price).join(', ')}</td>

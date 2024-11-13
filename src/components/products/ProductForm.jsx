@@ -1,15 +1,14 @@
 /* eslint-disable react/prop-types */
 import "../LoginSignUp/SignUp.css";
 import { useAuth, useProduct } from "../../contexts/customHook";
-import {  useEffect } from "react";
+import { useEffect, useState } from "react";
 
-const ProductForm = ({product}) => {
+const ProductForm = ({ product }) => {
   const {
     artistProduct,
     handleInput,
     handlePicture,
     productImage,
-    displayedCategories,
     setShowProducts,
     isLoading,
     setIsLoading,
@@ -17,12 +16,16 @@ const ProductForm = ({product}) => {
     setRefreshProducts,
     isEditing,
   } = useProduct();
-  
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [displayedCategories, setDisplayedCategories] = useState([]);
+
+  const handleCategoryChange = (event) => {
+    setSelectedCategory(event.target.value);
+  };
   const token = localStorage.getItem("token");
   const { artistData } = useAuth();
   const formData = new FormData();
   formData.append("files", productImage);
-
   useEffect(() => {
     if (isEditing && product) {
       setArtistProduct({
@@ -30,34 +33,42 @@ const ProductForm = ({product}) => {
         productTitle: product.attributes?.productTitle,
         description: product.attributes?.description,
         price: product.attributes?.price,
-        category: product.attributes?.category.data?.attributes.categoryTitle, 
+        category: product.attributes?.category.data?.id,
       });
     }
   }, []);
-  
+
+  const  handleCategory = async () => {
+    const response = await fetch ('https://africart-strapi-api.onrender.com/api/categories')
+    const data = await response.json()
+    console.log(data.data)
+    setDisplayedCategories(data.data)
+  }
+
+  useEffect(() => {
+    handleCategory()
+  }, [])
+
   const methodRequest = isEditing ? "PUT" : "POST";
   const createProducts = async () => {
     setIsLoading(true);
 
     try {
       const uploadImage = await fetch(
-         "https://africart-strapi-api.onrender.com/api/upload",
-        //  "http://localhost:1337/api/upload",
+        "https://africart-strapi-api.onrender.com/api/upload",
         {
-          method: 'POST',
+          method: "POST",
           mode: "cors",
           body: formData,
         }
       );
-
       const imageResponse = await uploadImage.json();
       const imageId = imageResponse[0]?.id;
 
       const newProductsResponse = await fetch(
         isEditing
           ? `https://africart-strapi-api.onrender.com/api/products/${product?.id}`
-          :
-        "https://africart-strapi-api.onrender.com/api/products/",
+          : "https://africart-strapi-api.onrender.com/api/products/",
         {
           method: methodRequest,
           headers: {
@@ -70,7 +81,11 @@ const ProductForm = ({product}) => {
               description: artistProduct.description,
               price: artistProduct.price,
               artists: artistData,
-              category: artistProduct.category,
+              category: {
+                data: {
+                  id:selectedCategory,
+                },
+              },
               productImage: imageId,
             },
           }),
@@ -82,6 +97,7 @@ const ProductForm = ({product}) => {
       }
 
       setShowProducts(false);
+      console.log(newProductsResponse);
     } catch (error) {
       console.log(error);
     } finally {
@@ -92,9 +108,11 @@ const ProductForm = ({product}) => {
     event.preventDefault();
     createProducts();
   };
+
+  console.log(selectedCategory);
   return (
     <>
-      <div className="wrapper">
+      <div className="wrapper font-poppins ">
         <form
           className="bg-white shadow-lg rounded-lg p-4 max-w-lg w-full mx-auto space-y-2"
           onSubmit={submit}>
@@ -158,16 +176,12 @@ const ProductForm = ({product}) => {
               Category
             </label>
             <select
-              id="category"
-              name="category"
-              value={artistProduct.category}
-              onChange={handleInput}
+              value={selectedCategory}
+              onChange={handleCategoryChange}
               className="mt-1 w-full p-2 border border-gray-300 bg-white text-black rounded focus:border-blue-500 focus:outline-none">
-              <option value="" disabled>
-                Select category
-              </option>
+              <option value="">Select Category</option>
               {displayedCategories.map((category) => (
-                <option key={category.id} value="electronics">
+                <option key={category.id} value={category.id}>
                   {category.attributes.categoryTitle}
                 </option>
               ))}
@@ -188,8 +202,10 @@ const ProductForm = ({product}) => {
               className="bg-[#102262] text-white font-semibold px-6 py-2 rounded hover:bg-[#222] focus:outline-none focus:ring-2 focus:ring-blue-400">
               {isLoading ? (
                 <span className="loading loading-spinner loading-lg "></span>
+              ) : isEditing ? (
+                "Update"
               ) : (
-               isEditing ? "Update" : "Create"
+                "Create"
               )}
             </button>
           </div>

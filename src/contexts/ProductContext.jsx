@@ -11,13 +11,12 @@ export const ProductProvider = ({ children }) => {
   const [displayedCategories, setDisplayedCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [showProducts, setShowProducts] = useState(false);
-  const isArtist = localStorage.getItem("isArtist");
-  const parseArtist = JSON.parse(isArtist);
+  const artist = localStorage.getItem("userDetails");
+  const parseArtist = JSON.parse(artist);
   const [artistProduct, setArtistProduct] = useState({
     productTitle: "",
     description: "",
     price: 0,
-    category: "",
     rating: 0,
   });
 
@@ -60,16 +59,16 @@ export const ProductProvider = ({ children }) => {
     fetchApiProducts();
   }, []);
 
+  console.log(products)
   useEffect(() => {
     const startIndexOfProducts = currentPage * perProducts;
-    const lastIndexOfProducts = currentPage + perProducts;
-    setDisplayedProducts(
+    const lastIndexOfProducts = startIndexOfProducts + perProducts;
+    setDisplayedProducts( 
       products.slice(startIndexOfProducts, lastIndexOfProducts)
     );
-  }, [ products, currentPage]);
+  }, [currentPage, products]);
   const handleNextProducts = () => {
     if ((currentPage + 1) * perProducts < products.length) {
-      console.log('next clicked')
       setCurrentPage((prevPage) => prevPage + 1);
     }
   };
@@ -126,6 +125,7 @@ export const ProductProvider = ({ children }) => {
   const  handleCategory = async () => {
     const response = await fetch ('https://africart-strapi-api.onrender.com/api/categories')
     const data = await response.json()
+    console.log(data.data)
     setDisplayedCategories(data.data)
   }
 

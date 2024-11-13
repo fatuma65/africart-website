@@ -46,20 +46,13 @@ const Header = () => {
   };
   return (
     <>
-      <div className="header">
+      <div className="header font-poppins">
         <h2>
           <Link to={"/"}>
             Afri<span className="logo">Cart</span>
           </Link>
         </h2>
         <div className="search-box ">
-          {/* <input
-            type="text"
-            name="searchText"
-            placeholder="Search Products Here"
-            value={searchText}
-            onChange={handleInputText}
-          /> */}
           <input
             type="text"
             placeholder="Search Products"
@@ -110,7 +103,7 @@ const Header = () => {
                   <img
                     src={userData?.profilePicture?.url}
                     alt=""
-                    className="user-image mx-auto cursor-pointer"
+                    className="user-image mx-auto cursor-pointer rounded-full"
                   />
                 </summary>
                 <ul className="menu dropdown-content bg-base-100 text-white rounded z-[1] w-32 p-2 ">

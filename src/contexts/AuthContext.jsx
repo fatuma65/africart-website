@@ -111,6 +111,7 @@ export const AuthProvider = ({ children }) => {
   }, [userId]);
 
   const loginUser = async () => {
+    try {
     const response = await fetch(
       "https://africart-strapi-api.onrender.com/api/auth/local",
       {
@@ -130,6 +131,10 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("isArtist", JSON.stringify(data.user.is_artist));
       fetchUser();
     }
+  }
+  catch (error) {
+    console.log(error)
+  }
   };
   const logoutUser = () => {
     setIslogedIn(false);
