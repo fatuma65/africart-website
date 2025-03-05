@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaUser, FaLock, FaEnvelope } from "react-icons/fa";
+import { FaEnvelope } from "react-icons/fa";
 import { GoogleLogin } from "@react-oauth/google";
 import "./SignUp.css";
 import { useNavigate } from "react-router-dom";
-import Header from "../Header/Header";
-import Footer from "../footer/Footer";
-import Navbar from "../../components/Navbar";
 import { useAuth } from "../../contexts/customHook";
+import { GrFormView } from "react-icons/gr";
+import { PiEyeClosedLight } from "react-icons/pi";
+import formImage from "../../assets/pexels-googledeepmind-17485817.jpg";
+
 const Login = () => {
-  const {inputData, setInputData, loginUser} = useAuth()   
-  const [msg, setMsg] = useState(false);
+  const { inputData, setInputData, loginUser, showPassword, handlePassword } =
+    useAuth();
 
   const handleInput = (event) => {
     setInputData({ ...inputData, [event.target.name]: event.target.value });
@@ -20,82 +20,93 @@ const Login = () => {
     event.preventDefault();
     if (!inputData.email || !inputData.password) {
       alert("All Fields are Mandatory!");
-     
     } else {
       loginUser();
-      setMsg(true);
-      setTimeout(() => {
-        setMsg(false);
-      }, 4000);
     }
-    navigate("/")
+    navigate("/");
   };
 
   return (
     <>
-      <Header />
-      <Navbar />
       <div className="wrapper">
-        <div className="form-box signUp">
-          <form onSubmit={submit} className="container">
-            <h2>{msg ? inputData.email + " : Login Successfully!" : null}</h2>
+        <div className="md:flex bg-white rounded-lg shadow-xl md:flex-row flex-col justify-center items-center md:w-[80%] w-full">
+          <div className=" md:w-[50%] w-full  ">
+            <img
+              src={formImage}
+              alt="Image by Fred Moon on Unsplash"
+              className="w-full h-[50%] object-contain rounded-r-[40px] rounded-m-[40px]"
+            />
+          </div>
 
-            <h1>Login</h1>
-
-            <div className="input-box">
+          <form
+            onSubmit={submit}
+            className="py-4 text-black  md:w-[50%] w-full px-8">
+            <h1 className="py-4 text- text-center text-4xl font-bold">
+              Welcome Back, Login
+            </h1>
+            <div className="flex bg-none w-full border rounded-md px-4 items-center mt-4 focus:ring-2 focus:ring-cyan-900">
               <input
                 type="email"
                 placeholder="Email"
-                autocomplete="email"
                 required
                 name="email"
-                value={inputData.email}
+                value={inputData?.email}
                 onChange={handleInput}
+                aria-required={true}
+                className="bg-transparent w-full p-3 outline-none "
               />
               <FaEnvelope className="icon" />
             </div>
-            <div className="input-box">
+            <div className="flex bg-none w-full border rounded-md px-4 items-center mt-4 focus:ring-2 focus:ring-cyan-900">
               <input
-                type="password"
+                type={`${!showPassword ? "password" : "text"}`}
                 placeholder="Passsword"
-                autocomplete="current-password"
                 required
                 name="password"
-                value={inputData.password}
+                aria-required={true}
+                className="bg-transparent w-full p-3 outline-none "
+                value={inputData?.password}
                 onChange={handleInput}
               />
-              <FaLock className="icon" />
+              {!showPassword ? (
+                <PiEyeClosedLight
+                  className="icon text-2xl"
+                  onClick={handlePassword}
+                />
+              ) : (
+                <GrFormView className="text-2xl" onClick={handlePassword} />
+              )}
             </div>
 
-            <div className="remember-forgot">
-              <label>
-                <input type="checkbox" />I agree to terms & conditions
-              </label>
-            </div>
+            <button
+              onClick={submit}
+              role="button"
+              className="border-none mt-4 w-full hover:bg-slate-500 p-3 text-white rounded-md bg-[#102262] focus:ring-2 focus:ring-cyan-900">
+              Login
+            </button>
 
-             <button onClick={submit}>Login</button>
-            
-             <div className="google-button">
+            <div className=" mt-4 w-[100%] flex justify-center mx-auto ">
               <GoogleLogin
                 onSuccess={(credentialResponse) => {
-                  const credentialResponseDecoded = jwt_decode (credentialResponse.credential);
-                  console.log(credentialResponseDecoded)
+                  const credentialResponseDecoded = jwt_decode(
+                    credentialResponse.credential
+                  );
+                  console.log(credentialResponseDecoded);
                 }}
                 onError={() => {
                   console.log("Login failed");
                 }}
               />
-              </div>
-             <div className="register-link">
-              <p>
-                Don't have an account ? <Link to={"/SignUp"}> SignUp</Link>
-              </p>
-              <Link />
             </div>
+            <p className="text-center mt-4">
+              Don&apos;t have an account?{" "}
+              <span className="text-[#D51C75]">
+                <Link to={"/signup"}>Sign Up </Link>
+              </span>
+            </p>
           </form>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

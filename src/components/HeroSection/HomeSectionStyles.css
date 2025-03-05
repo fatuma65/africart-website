@@ -2,10 +2,10 @@
     background: url(../../assets/karim-manjra-fm9wqDNXyQ0-unsplash.jpg);
 }
 @media screen and (min-width:250px) and (max-width: 950px) {
-    .home-sec  p{
+    /* .home-sec  p{
         font-size: 22px;
-    }
-    .home-sec {
+    } */
+    /* .home-sec {
         width: 100%;
-    }
+    } */
   }

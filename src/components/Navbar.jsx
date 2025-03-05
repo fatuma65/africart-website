@@ -12,7 +12,7 @@ const Navbar = () => {
             : "bg-[#102262] w-full flex justify-center items-center h-16"
         }`}>
         <nav>
-          <ul className="flex text-white text-xl cursor-pointer mx-auto">
+          <ul className="flex text-white cursor-pointer mx-auto text-lg">
             <li className="m-2" style={{ color: "#D51C75" }}>
               <Link to={"/"}>Home</Link>
             </li>

@@ -65,36 +65,32 @@ const Header = () => {
               </div>
               <i
                 className="bx bx-cart-alt cart-icon"
-                onClick={navigateToCart}
-              ></i>
+                onClick={navigateToCart}></i>
             </div>
           </div>
           {!islogedIn ? (
             <i
               onClick={handleClick}
-              className={`bx bx-user-circle text-4xl ${
+              className={`bx bx-user-circle text-4xl cursor-pointer ${
                 theme === "light" ? "icon-white" : "icon-black"
-              } `}
-            ></i>
+              } `}></i>
           ) : (
             <img
               src={userData?.profilePicture?.url}
               alt=""
               width={35}
-              height={5}
-              className="rounded-3xl"
+              height={2}
+              className="rounded-full  cursor-pointer"
             />
           )}
           {theme === "light" ? (
             <i
               className="bx bxs-sun text-4xl cursor-pointer"
-              onClick={toggle_mode}
-            ></i>
+              onClick={toggle_mode}></i>
           ) : (
             <i
               className="bx bxs-moon text-4xl cursor-pointer"
-              onClick={toggle_mode}
-            ></i>
+              onClick={toggle_mode}></i>
           )}
         </div>
       </div>

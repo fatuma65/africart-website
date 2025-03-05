@@ -4,13 +4,18 @@
     width: 250px;
     border-radius: .3rem;
 }
+.buttons button:active {
+    transform: skew(.4);
+    background-color: #b1a9a9;
+    /* transition: s; */
+}
 .buttons {
     display: flex;
-    font-size: 1.3rem;
+    font-size: 1rem;
 }
 body.light .btn {
     border: 1px solid #000;
-}
+}N
 .each-product img {
     border-radius: .5rem;
 }
