@@ -16,7 +16,7 @@ const Search = ({ productsFiltered, searchText }) => {
           <ul key={product.id}>
             <li
               onClick={() => handleProduct(product.id)}
-              className="cursor-pointer text-black">
+              className="cursor-pointer text-search text-black">
               {product.attributes.productTitle}
             </li>
           </ul>

@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-
+import { navLinks } from "../constants";
 const Navbar = () => {
   const location = useLocation();
 
@@ -12,19 +12,14 @@ const Navbar = () => {
             : "bg-[#102262] w-full flex justify-center items-center h-16"
         }`}>
         <nav>
-          <ul className="flex text-white cursor-pointer mx-auto text-lg">
-            <li className="m-2" style={{ color: "#D51C75" }}>
-              <Link to={"/"}>Home</Link>
-            </li>
-            <li className="m-2">
-              <Link to={"/shop"}>Shop</Link>
-            </li>
-            <li className="m-2">
-              <Link to={"/about"}>About Us</Link>
-            </li>
-            <li className="m-2">
-              <Link to={"/contact"}>Contact Us</Link>
-            </li>
+          <ul className="flex text-white cursor-pointer mx-auto">
+            {navLinks.map((link) => (
+              <li
+                key={link.id}
+                className="m-2 font-poppins hover:text-[#D51C75]">
+                <Link to={link.linkTo}>{link.title}</Link>
+              </li>
+            ))}
           </ul>
         </nav>
       </header>

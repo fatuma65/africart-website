@@ -60,7 +60,12 @@ body.light .search-box input {
 .icons {
   display: flex;
   justify-content: space-evenly;
-  gap: 8px;
+  gap: 8px
+}
+.user-image {
+  width: 2.5rem;
+  height: 2rem;
+  border-radius: 50%;
 }
 
 @media screen and (min-width:250px) and (max-width: 950px) {

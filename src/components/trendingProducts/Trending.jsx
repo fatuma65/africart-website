@@ -7,12 +7,12 @@ import Spinner from "../Spinner.jsx";
 
 const Trending = () => {
   const {
-    displayedProducts,
     handleTitle,
     handleViewNextProduct,
     convertNumber,
     displayRating,
     isLoading,
+    products,
   } = useProduct();
   const { theme } = useTheme();
 
@@ -22,17 +22,19 @@ const Trending = () => {
   const handleNewProducts = (type) => {
     const today = new Date();
 
-    const recentProducts = displayedProducts.filter((product) => {
+    const recentProducts = products
+    
+    .filter((product) => {
       if (type === "new") {
         const createdAt = new Date(product.attributes.createdAt);
         // convert the day which is in milliseconds into days.
         const dayDifference = (today - createdAt) / (1000 * 60 * 60 * 24);
         // return the products which were created less than 36 days ago.
-        return dayDifference <= 36;
+        return dayDifference <= 18;
       } else if (type === "featured") {
         return product.attributes.rating >= 4;
       } else if (type === "bestSeller") {
-        return product.attributes.price >= 20000;
+        return product.attributes.price >= 50000;
       } else {
         return true;
       }
@@ -42,11 +44,11 @@ const Trending = () => {
   };
   useEffect(() => {
     handleNewProducts("new");
-  }, [displayedProducts]);
+  }, [products]);
 
   return (
     <>
-      <div>
+      <div >
         <h1 className="text-xl font-bold text-center p-4">
           Trending <span className="text-[#D51C75]">Products</span>
         </h1>
@@ -56,19 +58,19 @@ const Trending = () => {
           unique home decor, each item tells a story of heritage, creativity and
           craftmanship.
         </p>
-        <div className="buttons mx-auto p-2 font-semibold md:w-1/2 w-full">
+        <div className="buttons flex md:flex-row flex-col justify-center mt-4  gap-2  font-medium w-full">
           <button
-            className={`${theme === "dark" ? "text-[#fff]" : ""}  btn`}
+            className={`${theme === "dark" ? "text-[#fff]" : ""}  btn bg-white text-black hover:text-white`}
             onClick={() => handleNewProducts("new")}>
             New Products
           </button>
           <button
-            className="text-white active:bg-rose-400 hover:bg-slate-500 bg-[#D51C75]"
+            className="text-white active:bg-rose-400 btn border-none text-nowrap hover:bg-slate-500 bg-[#D51C75]"
             onClick={() => handleNewProducts("featured")}>
             Featured Products
           </button>
           <button
-            className={`${theme === "dark" ? "text-[#fff]" : ""}  btn`}
+            className={`${theme === "dark" ? "text-[#fff]" : ""}  btn  bg-white text-black hover:text-white`}
             onClick={() => handleNewProducts("bestSeller")}>
             Best Sellers
           </button>
@@ -94,7 +96,7 @@ const Trending = () => {
                 {displayRating(product.attributes.rating)}
               </div>
               <button
-                className="bg-[#102262] text-white p-2 m-2 font-semibold w-full text-center mx-auto hover:bg-[#000]"
+                className="bg-[#102262] text-white btn  m-2 font-semibold w-full text-center mx-auto hover:bg-[#000]"
                 onClick={() => handleViewNextProduct(product.id)}>
                 View Product
               </button>

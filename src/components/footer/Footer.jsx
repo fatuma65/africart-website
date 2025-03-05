@@ -15,7 +15,7 @@ const Footer = () => {
   };
   return (
     <>
-      <div className="bg-[#102262] relative main-div">
+      <div className="bg-[#102262] relative main-div  font-poppins ">
         <div className="bg-[#D51C75] lg:w-3/4 w-full lg:flex mx-auto justify-between p-2 pink-bg">
           <div className="lg:p-4 p-2 text-white">
             <h1 className="text-4xl font-bold">Subscribe to our Newsletter</h1>
@@ -29,11 +29,11 @@ const Footer = () => {
               type="email"
               placeholder="Email"
               value={email}
-              className="lg:p-2 m-4"
+              className="lg:p-2 m-4 bg-white"
               onChange={handleEmail}
             />
             <button
-              className="bg-[#102262] p-2 text-white font-semibold text-center"
+              className="bg-[#102262] p-2 ml-4 text-white font-semibold text-center"
               onClick={handleSubmit}>
               Send
             </button>

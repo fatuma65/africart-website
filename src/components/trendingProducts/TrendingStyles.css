@@ -1,21 +1,15 @@
 .buttons button {
-    padding: 12px;
-    margin: 10px;
-    width: 250px;
+    width: 200px;
     border-radius: .3rem;
 }
 .buttons button:active {
     transform: skew(.4);
     background-color: #b1a9a9;
-    /* transition: s; */
 }
-.buttons {
-    display: flex;
-    font-size: 1rem;
-}
+
 body.light .btn {
-    border: 1px solid #000;
-}N
+    /* border: 1px solid #000; */
+}
 .each-product img {
     border-radius: .5rem;
 }
@@ -30,6 +24,6 @@ body.light .btn {
         align-items: center;
     }
     .each-product {
-        font-size: 1.4rem;
+        /* font-size: 1.4rem; */
     }
 }

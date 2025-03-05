@@ -6,17 +6,21 @@ import { useAuth, useCart, useProduct } from "../../contexts/customHook";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../contexts/ThemeContext";
 import Search from "../Search";
+import { Link } from "react-router-dom";
+
 const Header = () => {
   const { cartItems } = useCart();
   const { displayedProducts } = useProduct();
   const [searchText, setSearchText] = useState("");
   const [productsFiltered, setProductsFiltered] = useState([]);
-  const { userData, islogedIn } = useAuth();
+  const { userData, islogedIn, logoutUser } = useAuth();
   const { theme, setTheme } = useTheme();
   const navigate = useNavigate();
+  const redirect = useNavigate();
   const handleClick = () => {
     navigate("/signup");
   };
+
   const toggle_mode = () => {
     theme === "light" ? setTheme("dark") : setTheme("light");
   };
@@ -38,28 +42,35 @@ const Header = () => {
     navigate("/cart");
   };
 
+  const navigateToDashboard = () => {
+    redirect("/user");
+  };
+
   return (
     <>
-      <div className="header">
+      <div className="header font-poppins">
         <h2>
-          Afri<span className="logo">Cart</span>
+          <Link to={"/"}>
+            Afri<span className="logo">Cart</span>
+          </Link>
         </h2>
-        <div className="search-box ">
+        <div className="search-box">
           <input
             type="text"
-            name="searchText"
-            placeholder="Search Products Here"
+            placeholder="Search Products"
             value={searchText}
+            name="searchText"
             onChange={handleInputText}
+            className="input input-bordered border-none"
           />
           <i className="bx bx-search text-2xl mr-4"></i>
         </div>
 
         <div className="icons flex">
-          <div className="  flex justify-center items-center">
+          <div className="flex justify-center items-center">
             <div className="relative py-0 px-2">
-              <div className="mb-8 absolute left-9 pb-4 ">
-                <p className="flex h-4 w-4 items-center justify-center rounded-full bg-red-500  text-xs text-white cart-count-icon">
+              <div className="mb-8 absolute left-9 pb-4">
+                <p className="flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs text-white cart-count-icon">
                   {cartItems.length}
                 </p>
               </div>
@@ -68,21 +79,47 @@ const Header = () => {
                 onClick={navigateToCart}></i>
             </div>
           </div>
+
           {!islogedIn ? (
-            <i
-              onClick={handleClick}
-              className={`bx bx-user-circle text-4xl cursor-pointer ${
-                theme === "light" ? "icon-white" : "icon-black"
-              } `}></i>
+            <details className="dropdown dropdown-end">
+              <summary className="flex">
+                <i
+                  onClick={handleClick}
+                  className={`bx bx-user-circle text-4xl cursor-pointer ${
+                    theme === "light" ? "icon-white" : "icon-black"
+                  }`}></i>
+              </summary>
+              <ul className="menu dropdown-content bg-base-100 text-white rounded z-[1] w-32 p-2">
+                <li>
+                  <a onClick={handleClick}>My Account</a>
+                </li>
+                <li>
+                  <a>Support</a>
+                </li>
+              </ul>
+            </details>
           ) : (
-            <img
-              src={userData?.profilePicture?.url}
-              alt=""
-              width={35}
-              height={2}
-              className="rounded-full  cursor-pointer"
-            />
+            <details className="dropdown bg-white dropdown-end">
+              <summary className="flex flex-row items-center">
+                <img
+                  src={userData?.profilePicture?.url}
+                  alt=""
+                  className="user-image mx-auto cursor-pointer rounded-full"
+                  width={35}
+                  height={35}
+                />
+              </summary>
+              <ul className="menu dropdown-content bg-white text-black rounded-md shadow-2xl z-[1] w-32 p-2">
+                <li >
+                  <a className="text-nowrap" onClick={navigateToDashboard}>My Account</a>
+                </li>
+                <li>
+                  <a onClick={logoutUser}>Logout</a>
+                </li>
+              </ul>
+            </details>
           )}
+
           {theme === "light" ? (
             <i
               className="bx bxs-sun text-4xl cursor-pointer"

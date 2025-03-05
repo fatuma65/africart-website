@@ -24,7 +24,7 @@ const HomeSection = () => {
             continent&#39;s creators.
           </p>
           <button
-            className="bg-[#102262] text-center p-3 md:p-2 w-40 font-semibold rounded-lg hover:outline hover:bg-inherit"
+            className="bg-[#102262] text-center p-3 md:p-2 w-40 font-medium rounded-lg hover:outline hover:bg-inherit"
             onClick={redirectToProductsPage}>
             <Link to={"/shop"}>Shop Now</Link>
           </button>

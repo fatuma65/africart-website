@@ -9,6 +9,7 @@ import Checkout from "./Pages/Checkout";
 import Login from "./components/LoginSignUp/Login";
 import SignUp from "./components/LoginSignUp/SignUp";
 import PaymentSuccess from "./components/payment/PaymentSuccess";
+import Dashboard from "./components/userDashboard/Dashboard"
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/payment-success" element={<PaymentSuccess />}></Route>
         <Route path="/product/:id" element={<Detail />}></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/user" element={<Dashboard />}></Route>
         <Route path="/signup" element={<SignUp />}></Route>
       </Routes>
     </>
