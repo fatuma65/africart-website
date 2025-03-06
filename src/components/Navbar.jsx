@@ -12,9 +12,13 @@ const Navbar = () => {
             : "bg-[#102262] w-full flex justify-center items-center h-16"
         }`}>
         <nav>
-          <ul className="flex text-white text-xl cursor-pointer mx-auto">
+          <ul className="flex text-white cursor-pointer mx-auto">
             {navLinks.map((link) => (
-              <li key={link.id} className="m-2 font-poppins hover:text-[#D51C75]"><Link to={link.linkTo}>{link.title}</Link></li>
+              <li
+                key={link.id}
+                className="m-2 font-poppins hover:text-[#D51C75]">
+                <Link to={link.linkTo}>{link.title}</Link>
+              </li>
             ))}
           </ul>
         </nav>

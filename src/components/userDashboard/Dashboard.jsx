@@ -35,7 +35,7 @@ const {parseArtist, userProducts} = useProduct()
     <>
       <Header />
       {theme === "dark" && <hr />}
-      <div className="lg:flex dashboard justify-center font-poppins">
+      <div className="lg:flex dashboard justify-center font-poppins min-h-screen">
         <div className="flex flex-col lg:w-80 main-dash bg-[#fff] m-2 rounded">
           <h1
             className="bg-[#102262] text-white font-bold text-xl mx-auto p-3 w-72 text-center rounded mt-12 cursor-pointer shadow-xl"

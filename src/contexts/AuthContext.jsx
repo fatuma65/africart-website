@@ -13,11 +13,12 @@ export const AuthProvider = ({ children }) => {
     password: "",
     confirmPassword: "",
   });
-
   const handlePicture = (e) => {
     setProfilePicture(e.target.files[0]);
   };
   const storedId = localStorage.getItem("Id");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigateHome = useNavigate();
 
   const storedUser = localStorage.getItem("userDetails");
@@ -31,17 +32,28 @@ export const AuthProvider = ({ children }) => {
   const handleIsArtist = () => {
     setIsArtist(!is_Artist);
   };
-  const formData = new FormData();
-  formData.append("files", profilePicture);
 
   const postNewUser = async () => {
+    const formData = new FormData();
+    formData.append("files", profilePicture);
+
     setIsloading(true);
+
     try {
-      const response = await fetch("https://africart-strapi-api.onrender.com/api/upload", {
-        method: "POST",
-        body: formData,
-        mode: "cors",
-      });
+      const response = await fetch(
+        "https://africart-strapi-api.onrender.com/api/upload",
+        {
+          method: "POST",
+          body: formData,
+          mode: "cors",
+        }
+      );
+      console.log(response);
+
+      if (!response.ok) {
+        throw new Error("Failed to upload the profile picture");
+      }
+
       const data = await response.json();
 
       const profileId = data[0]?.id;
@@ -63,6 +75,12 @@ export const AuthProvider = ({ children }) => {
           headers: { "Content-type": "application/json" },
         }
       );
+      console.log(postUserData);
+
+      if (!postUserData.ok) {
+        throw new Error("Failed to register new user");
+      }
+
       const posted = await postUserData.json();
 
       if (is_Artist) {
@@ -88,67 +106,89 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const loginUser = async () => {
+    try {
+      const response = await fetch(
+        "https://africart-strapi-api.onrender.com/api/auth/local",
+        {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify({
+            identifier: inputData.email,
+            password: inputData.password,
+          }),
+        }
+      );
+      console.log(response);
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        if (data.user && data.user.id) {
+          setUserId(data.user.id);
+          localStorage.setItem("token", data.jwt);
+          localStorage.setItem("Id", JSON.stringify(data.user.id));
+          localStorage.setItem("isArtist", JSON.stringify(data.user.is_artist));
+          fetchUser();
+        }
+        setUserId(data.user.id);
+        localStorage.setItem("Id", JSON.stringify(data.user.id));
+        fetchUser();
+      } else {
+        console.log("An error has occured");
+      }
+    } catch (error) {
+      console.log("An error occured while login", error);
+    }
+  };
+
   const fetchUser = async () => {
     const response = await fetch(
       `https://africart-strapi-api.onrender.com/api/users/${parseInt(
-        userId
+        storedId
       )}/?populate=*`
     );
+    console.log(response);
     if (response.ok) {
       const data = await response.json();
-      if (data) {
-        setUserData(data);
-        setArtist(data.artist);
-        setIslogedIn(true);
-        localStorage.setItem("userDetails", JSON.stringify(data));
-      }
+      console.log(data);
+      setUserData(data);
+      setArtist(data.artist);
+      setIslogedIn(true);
+      localStorage.setItem("userDetails", JSON.stringify(data));
+      setIslogedIn(true);
+    } else {
+      console.log("An error has occured");
     }
   };
-  useEffect(() => {
-    if (userId) {
-      fetchUser();
-    }
-  }, [userId]);
 
-  const loginUser = async () => {
-    try {
-    const response = await fetch(
-      "https://africart-strapi-api.onrender.com/api/auth/local",
-      {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({
-          identifier: inputData.email,
-          password: inputData.password,
-        }),
-      }
-    );
-    const data = await response.json();
-    if (data.user && data.user.id) {
-      setUserId(data.user.id);
-      localStorage.setItem("token", data.jwt);
-      localStorage.setItem("Id", JSON.stringify(data.user.id));
-      localStorage.setItem("isArtist", JSON.stringify(data.user.is_artist));
-      fetchUser();
-    }
-  }
-  catch (error) {
-    console.log(error)
-  }
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+  const handlePassword = () => {
+    setShowPassword(!showPassword);
   };
+  const handleConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
   const logoutUser = () => {
     setIslogedIn(false);
     setUserId(null);
     setUserData(null);
     localStorage.clear();
-    navigateHome('/')
-    
+    navigateHome("/");
   };
+
   return (
     <AuthContext.Provider
       value={{
         isloading,
         profilePicture,
+        handleConfirmPassword,
+        handlePassword,
+        showConfirmPassword,
+        showPassword,
         setProfilePicture,
         handlePicture,
         postNewUser,

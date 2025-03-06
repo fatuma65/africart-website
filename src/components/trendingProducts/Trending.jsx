@@ -48,24 +48,24 @@ const Trending = () => {
 
   return (
     <>
-      <div className=" font-poppins ">
-        <h1 className="text-4xl font-bold text-center p-4 ">
+      <div >
+        <h1 className="text-xl font-bold text-center p-4">
           Trending <span className="text-[#D51C75]">Products</span>
         </h1>
-        <p className="lg:w-1/2 text-center mx-auto p-2 text-2xl lg:text-base">
+        <p className="lg:w-1/2 w-full text-center mx-auto p-2 text-base">
           Discover the richness of african culture through our curated selection
           of trending products. From handcrafted jewerlly and vibrant fashion to
           unique home decor, each item tells a story of heritage, creativity and
           craftmanship.
         </p>
-        <div className="buttons mx-auto p-2 font-semibold lg:w-1/2">
+        <div className="buttons flex md:flex-row flex-col justify-center mt-4  gap-2  font-medium w-full">
           <button
             className={`${theme === "dark" ? "text-[#fff]" : ""}  btn bg-white text-black hover:text-white`}
             onClick={() => handleNewProducts("new")}>
             New Products
           </button>
           <button
-            className="text-white btn bg-[#D51C75]"
+            className="text-white active:bg-rose-400 btn border-none text-nowrap hover:bg-slate-500 bg-[#D51C75]"
             onClick={() => handleNewProducts("featured")}>
             Featured Products
           </button>

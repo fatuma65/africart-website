@@ -7,8 +7,10 @@ const Search = ({ productsFiltered, searchText }) => {
     navigate(`/product/${id}`);
   };
   return (
-    <div className={`${searchText.length !== 0 && "search-container"}`}>
-      {productsFiltered.length !== 0 ? (
+    <div className={`${searchText.trim() && "search-container"}`}>
+      {productsFiltered === null && productsFiltered.length === 0 ? (
+        <p>No products Found</p>
+      ) : (
         searchText &&
         productsFiltered.map((product) => (
           <ul key={product.id}>
@@ -19,7 +21,7 @@ const Search = ({ productsFiltered, searchText }) => {
             </li>
           </ul>
         ))
-      ) : searchText.length !== 0 && <p className='found'>Not Found</p>}
+      )}
     </div>
   );
 };
