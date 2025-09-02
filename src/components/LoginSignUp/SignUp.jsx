@@ -1,5 +1,5 @@
 import { useCallback, useState, useRef } from "react";
-
+import Navbar from "../Navbar";
 import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
 import { useAuth } from "../../contexts/customHook";
@@ -75,7 +75,8 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="wrapper  py-8 ">
+    <Navbar />
+      <div className="wrapper py-8 ">
         <div className="md:flex bg-white rounded-lg shadow-xl md:flex-row flex-col justify-center items-center md:w-[80%] w-full h-full">
           <div className=" md:w-[50%] w-full h-full ">
             <img
