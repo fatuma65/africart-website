@@ -93,11 +93,11 @@ const UserForm = ({
           />
           {!showPassword ? (
             <PiEyeClosedLight
-              className="icon text-2xl"
+              className="icon text-2xl cursor-pointer"
               onClick={handlePassword}
             />
           ) : (
-            <GrFormView className="text-2xl" onClick={handlePassword} />
+            <GrFormView className="text-2xl cursor-pointer" onClick={handlePassword} />
           )}
         </div>
         {errors.password && <p className="text-red-600">{errors.password}</p>}
@@ -115,11 +115,11 @@ const UserForm = ({
           />
           {!showConfirmPassword ? (
             <PiEyeClosedLight
-              className="text-2xl"
+              className="text-2xl cursor-pointer"
               onClick={handleConfirmPassword}
             />
           ) : (
-            <GrFormView className="text-2xl" onClick={handleConfirmPassword} />
+            <GrFormView className="text-2xl cursor-pointer" onClick={handleConfirmPassword} />
           )}
         </div>
         {errors.confirmPassword && (

@@ -22,8 +22,8 @@ const Login = () => {
       alert("All Fields are Mandatory!");
     } else {
       loginUser();
+      navigate("/");
     }
-    navigate("/");
   };
 
   return (
