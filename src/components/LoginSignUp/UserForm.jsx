@@ -15,6 +15,8 @@ const UserForm = ({
   showConfirmPassword,
   checkedRef,
   isloading,
+  handleIsArtist,
+  is_Artist
 }) => {
   return (
     <>
@@ -125,6 +127,10 @@ const UserForm = ({
         {errors.confirmPassword && (
           <p className="text-red-600">{errors.confirmPassword}</p>
         )}
+        <div className="mt-2 mb-2">
+          <label htmlFor="artist">Are you an artist? </label>
+          <input type="checkbox" onChange={handleIsArtist} checked={inputData.is_artist}/>
+        </div>
 
         <div className="flex bg-none w-full border rounded-md px-4 mt-2 items-center  focus:ring-2 focus:ring-cyan-900">
           <input

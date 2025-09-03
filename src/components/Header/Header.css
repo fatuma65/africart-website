@@ -63,8 +63,8 @@ body.light .search-box input {
   gap: 8px
 }
 .user-image {
-  width: 2.5rem;
-  height: 2rem;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
 }
 

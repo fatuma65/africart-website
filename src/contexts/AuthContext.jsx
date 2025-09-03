@@ -17,6 +17,7 @@ export const AuthProvider = ({ children }) => {
     setProfilePicture(e.target.files[0]);
   };
   const storedId = localStorage.getItem("Id");
+  console.log(storedId);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigateHome = useNavigate();
@@ -25,12 +26,13 @@ export const AuthProvider = ({ children }) => {
   const [islogedIn, setIslogedIn] = useState(false);
   const [userId, setUserId] = useState(storedId ? storedId : null);
   const [userData, setUserData] = useState(
-    storedUser ? JSON.parse(storedUser) : null
+    storedUser ? JSON.parse(storedUser) : []
   );
+  // console.log('userData', userData);
   const [is_Artist, setIsArtist] = useState(false);
   const [artistData, setArtist] = useState(null);
-  const handleIsArtist = () => {
-    setIsArtist(!is_Artist);
+  const handleIsArtist = (e) => {
+    setIsArtist(e.target.checked);
   };
 
   const postNewUser = async () => {
@@ -48,7 +50,7 @@ export const AuthProvider = ({ children }) => {
           mode: "cors",
         }
       );
-      console.log(response);
+      // console.log(response);
 
       if (!response.ok) {
         throw new Error("Failed to upload the profile picture");
@@ -75,7 +77,7 @@ export const AuthProvider = ({ children }) => {
           headers: { "Content-type": "application/json" },
         }
       );
-      console.log(postUserData);
+      // console.log(postUserData);
 
       if (!postUserData.ok) {
         throw new Error("Failed to register new user");
@@ -97,7 +99,7 @@ export const AuthProvider = ({ children }) => {
           }
         );
         const isArtistData = await isArtistResponse.json();
-        console.log(isArtistData);
+        // console.log(isArtistData);
       }
     } catch (error) {
       console.log(error);
@@ -108,6 +110,7 @@ export const AuthProvider = ({ children }) => {
 
   const loginUser = async () => {
     try {
+      setIsloading(true);
       const response = await fetch(
         "https://africart-strapi-api.onrender.com/api/auth/local",
         {
@@ -119,10 +122,10 @@ export const AuthProvider = ({ children }) => {
           }),
         }
       );
-      console.log(response);
+      // console.log(response);
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         if (data.user && data.user.id) {
           setUserId(data.user.id);
           localStorage.setItem("token", data.jwt);
@@ -138,26 +141,35 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       console.log("An error occured while login", error);
+    } finally {
+      setIsloading(false);
     }
   };
 
   const fetchUser = async () => {
-    const response = await fetch(
-      `https://africart-strapi-api.onrender.com/api/users/${parseInt(
-        storedId
-      )}/?populate=*`
-    );
-    console.log(response);
-    if (response.ok) {
-      const data = await response.json();
-      console.log(data);
-      setUserData(data);
-      setArtist(data.artist);
-      setIslogedIn(true);
-      localStorage.setItem("userDetails", JSON.stringify(data));
-      setIslogedIn(true);
-    } else {
-      console.log("An error has occured");
+    setIsloading(true);
+    try {
+      const response = await fetch(
+        `https://africart-strapi-api.onrender.com/api/users/${parseInt(
+          storedId
+        )}/?populate=*`
+      );
+      // console.log(response);
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        setUserData(data);
+        setArtist(data.artist);
+        setIslogedIn(true);
+        localStorage.setItem("userDetails", JSON.stringify(data));
+        setIslogedIn(true);
+      } else {
+        console.log("An error has occured");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsloading(false);
     }
   };
 
@@ -202,7 +214,8 @@ export const AuthProvider = ({ children }) => {
         handleIsArtist,
         artistData,
         logoutUser,
-      }}>
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
