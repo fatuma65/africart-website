@@ -67,27 +67,16 @@ const Header = () => {
         </div>
 
         <div className="icons flex">
-          <div className="flex justify-center items-center">
-            <div className="relative py-0 px-2">
-              <div className="mb-8 absolute left-9 pb-4">
-                <p className="flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs text-white cart-count-icon">
-                  {cartItems.length}
-                </p>
-              </div>
-              <i
-                className="bx bx-cart-alt cart-icon"
-                onClick={navigateToCart}></i>
-            </div>
-          </div>
-
           {!islogedIn ? (
             <details className="dropdown dropdown-end">
               <summary className="flex">
                 <i
+                  title="Login / Register"
                   onClick={handleClick}
                   className={`bx bx-user-circle text-4xl cursor-pointer ${
                     theme === "light" ? "icon-white" : "icon-black"
-                  }`}></i>
+                  }`}
+                ></i>
               </summary>
               <ul className="menu dropdown-content bg-base-100 text-white rounded z-[1] w-32 p-2">
                 <li>
@@ -99,35 +88,52 @@ const Header = () => {
               </ul>
             </details>
           ) : (
-            <details className="dropdown bg-white dropdown-end">
-              <summary className="flex flex-row items-center">
-                <img
-                  src={userData?.profilePicture?.url}
-                  alt=""
-                  className="user-image mx-auto cursor-pointer rounded-full"
-                  width={35}
-                  height={35}
-                />
-              </summary>
-              <ul className="menu dropdown-content bg-white text-black rounded-md shadow-2xl z-[1] w-32 p-2">
-                <li >
-                  <a className="text-nowrap" onClick={navigateToDashboard}>My Account</a>
-                </li>
-                <li>
-                  <a onClick={logoutUser}>Logout</a>
-                </li>
-              </ul>
-            </details>
+            <>
+              <div className="flex justify-center items-center">
+                <div className="relative py-0 px-2">
+                  <div className="mb-8 absolute left-9 pb-4">
+                    <p className="flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs text-white cart-count-icon">
+                      {cartItems.length}
+                    </p>
+                  </div>
+                  <i
+                    className="bx bx-cart-alt cart-icon"
+                    onClick={navigateToCart}
+                  ></i>
+                </div>
+              </div>
+              <details className="dropdown bg-white dropdown-end">
+                <summary className="flex flex-row items-center">
+                  <img
+                    src={userData?.profilePicture?.url}
+                    alt=""
+                    className="user-image mx-auto cursor-pointer rounded-full"
+                  />
+                </summary>
+                <ul className="menu dropdown-content bg-white text-black rounded-md shadow-2xl z-[1] w-32 p-2">
+                  <li>
+                    <a className="text-nowrap" onClick={navigateToDashboard}>
+                      My Account
+                    </a>
+                  </li>
+                  <li>
+                    <a onClick={logoutUser}>Logout</a>
+                  </li>
+                </ul>
+              </details>
+            </>
           )}
 
           {theme === "light" ? (
             <i
               className="bx bxs-sun text-4xl cursor-pointer"
-              onClick={toggle_mode}></i>
+              onClick={toggle_mode}
+            ></i>
           ) : (
             <i
               className="bx bxs-moon text-4xl cursor-pointer"
-              onClick={toggle_mode}></i>
+              onClick={toggle_mode}
+            ></i>
           )}
         </div>
       </div>

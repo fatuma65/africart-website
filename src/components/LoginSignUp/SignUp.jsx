@@ -75,7 +75,8 @@ const SignUp = () => {
 
   return (
     <>
-    <Navbar />
+      {isloading && <Spinner />}
+      <Navbar />
       <div className="wrapper py-8 ">
         <div className="md:flex bg-white rounded-lg shadow-xl md:flex-row flex-col justify-center items-center md:w-[80%] w-full h-full">
           <div className=" md:w-[50%] w-full h-full ">

@@ -7,9 +7,10 @@ import { useAuth } from "../../contexts/customHook";
 import { GrFormView } from "react-icons/gr";
 import { PiEyeClosedLight } from "react-icons/pi";
 import formImage from "../../assets/pexels-googledeepmind-17485817.jpg";
+import Spinner from '../Spinner';
 
 const Login = () => {
-  const { inputData, setInputData, loginUser, showPassword, handlePassword } =
+  const { inputData, setInputData, loginUser, showPassword, handlePassword, isloading } =
     useAuth();
 
   const handleInput = (event) => {
@@ -28,6 +29,7 @@ const Login = () => {
 
   return (
     <>
+    {isloading && <Spinner />}
       <div className="wrapper">
         <div className="md:flex bg-white rounded-lg shadow-xl md:flex-row flex-col justify-center items-center md:w-[80%] w-full">
           <div className=" md:w-[50%] w-full  ">
