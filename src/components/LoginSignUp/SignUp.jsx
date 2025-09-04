@@ -17,6 +17,8 @@ const SignUp = () => {
     handleConfirmPassword,
     handlePassword,
     isloading,
+    handleIsArtist,
+    is_Artist
   } = useAuth();
   const navigate = useNavigate();
 
@@ -57,7 +59,7 @@ const SignUp = () => {
     return formErrors;
   }, []);
 
-  const submit = (event) => {
+  const submit =  (event) => {
     event.preventDefault();
     const newErrors = validateForm(inputData);
     setErrors(newErrors);
@@ -98,6 +100,7 @@ const SignUp = () => {
             showPassword={showPassword}
             checkedRef={checkedRef}
             isloading={isloading}
+            handleIsArtist={handleIsArtist}
           />
         </div>
       </div>
