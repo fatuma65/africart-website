@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { AuthContext } from "./context";
 import { useNavigate } from "react-router-dom";
+import { SiTrueup } from "react-icons/si";
 export const AuthProvider = ({ children }) => {
   const [isloading, setIsloading] = useState(false);
   const [profilePicture, setProfilePicture] = useState(null);
@@ -17,7 +18,6 @@ export const AuthProvider = ({ children }) => {
     setProfilePicture(e.target.files[0]);
   };
   const storedId = localStorage.getItem("Id");
-  console.log(storedId);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigateHome = useNavigate();
@@ -28,9 +28,9 @@ export const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState(
     storedUser ? JSON.parse(storedUser) : []
   );
-  // console.log('userData', userData);
   const [is_Artist, setIsArtist] = useState(false);
   const [artistData, setArtist] = useState(null);
+
   const handleIsArtist = (e) => {
     setIsArtist(e.target.checked);
   };
@@ -39,9 +39,10 @@ export const AuthProvider = ({ children }) => {
     const formData = new FormData();
     formData.append("files", profilePicture);
 
-    setIsloading(true);
 
     try {
+      setIsloading(true);
+
       const response = await fetch(
         "https://africart-strapi-api.onrender.com/api/upload",
         {
@@ -50,7 +51,6 @@ export const AuthProvider = ({ children }) => {
           mode: "cors",
         }
       );
-      // console.log(response);
 
       if (!response.ok) {
         throw new Error("Failed to upload the profile picture");
@@ -98,8 +98,9 @@ export const AuthProvider = ({ children }) => {
             }),
           }
         );
-        const isArtistData = await isArtistResponse.json();
+        await isArtistResponse.json();
         // console.log(isArtistData);
+        return true;
       }
     } catch (error) {
       console.log(error);
@@ -122,20 +123,19 @@ export const AuthProvider = ({ children }) => {
           }),
         }
       );
-      // console.log(response);
       if (response.ok) {
         const data = await response.json();
-        // console.log(data);
+
         if (data.user && data.user.id) {
           setUserId(data.user.id);
           localStorage.setItem("token", data.jwt);
           localStorage.setItem("Id", JSON.stringify(data.user.id));
           localStorage.setItem("isArtist", JSON.stringify(data.user.is_artist));
-          fetchUser();
+
+          await fetchUser(data.user.id);
+
+          return true;
         }
-        setUserId(data.user.id);
-        localStorage.setItem("Id", JSON.stringify(data.user.id));
-        fetchUser();
       } else {
         console.log("An error has occured");
       }
@@ -146,23 +146,25 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const fetchUser = async () => {
+  const fetchUser = async (userId) => {
     setIsloading(true);
+
     try {
       const response = await fetch(
         `https://africart-strapi-api.onrender.com/api/users/${parseInt(
-          storedId
+          userId ? userId : storedId
         )}/?populate=*`
       );
-      // console.log(response);
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+
         setUserData(data);
         setArtist(data.artist);
         setIslogedIn(true);
+
         localStorage.setItem("userDetails", JSON.stringify(data));
         setIslogedIn(true);
+
       } else {
         console.log("An error has occured");
       }

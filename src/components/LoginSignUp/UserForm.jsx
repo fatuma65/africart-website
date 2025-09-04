@@ -16,7 +16,6 @@ const UserForm = ({
   checkedRef,
   isloading,
   handleIsArtist,
-  is_Artist
 }) => {
   return (
     <>

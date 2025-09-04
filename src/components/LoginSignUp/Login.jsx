@@ -8,6 +8,7 @@ import { GrFormView } from "react-icons/gr";
 import { PiEyeClosedLight } from "react-icons/pi";
 import formImage from "../../assets/pexels-googledeepmind-17485817.jpg";
 import Spinner from '../Spinner';
+import NavBar from '../Navbar'
 
 const Login = () => {
   const { inputData, setInputData, loginUser, showPassword, handlePassword, isloading } =
@@ -17,19 +18,24 @@ const Login = () => {
     setInputData({ ...inputData, [event.target.name]: event.target.value });
   };
   const navigate = useNavigate();
-  const submit = (event) => {
+
+  const submit = async (event) => {
     event.preventDefault();
     if (!inputData.email || !inputData.password) {
       alert("All Fields are Mandatory!");
     } else {
-      loginUser();
-      navigate("/");
+      const success = await loginUser();
+
+      if (success) {
+        navigate("/");
+      }
     }
   };
 
   return (
     <>
     {isloading && <Spinner />}
+    <NavBar />
       <div className="wrapper">
         <div className="md:flex bg-white rounded-lg shadow-xl md:flex-row flex-col justify-center items-center md:w-[80%] w-full">
           <div className=" md:w-[50%] w-full  ">
@@ -72,11 +78,11 @@ const Login = () => {
               />
               {!showPassword ? (
                 <PiEyeClosedLight
-                  className="icon text-2xl"
+                  className="icon text-2xl cursor-pointer"
                   onClick={handlePassword}
                 />
               ) : (
-                <GrFormView className="text-2xl" onClick={handlePassword} />
+                <GrFormView className="text-2xl cursor-pointer" onClick={handlePassword} />
               )}
             </div>
 
