@@ -163,7 +163,7 @@ export const ProductProvider = ({ children }) => {
           setArtistProduct,
           parseArtist,
           userProducts, 
-          setUserProducts
+          setUserProducts,
         }}>
         {children}
       </ProductContext.Provider>

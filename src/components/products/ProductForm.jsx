@@ -41,7 +41,6 @@ const ProductForm = ({ product }) => {
   const  handleCategory = async () => {
     const response = await fetch ('https://africart-strapi-api.onrender.com/api/categories')
     const data = await response.json()
-    console.log(data.data)
     setDisplayedCategories(data.data)
   }
 
@@ -80,7 +79,7 @@ const ProductForm = ({ product }) => {
               productTitle: artistProduct.productTitle,
               description: artistProduct.description,
               price: artistProduct.price,
-              artists: artistData,
+              artists: artistData.id,
               category: {
                 data: {
                   id:selectedCategory,
@@ -97,7 +96,6 @@ const ProductForm = ({ product }) => {
       }
 
       setShowProducts(false);
-      console.log(newProductsResponse);
     } catch (error) {
       console.log(error);
     } finally {
@@ -109,12 +107,11 @@ const ProductForm = ({ product }) => {
     createProducts();
   };
 
-  console.log(selectedCategory);
   return (
     <>
-      <div className="wrapper font-poppins ">
+      <div className="product-wrapper lg:w-[50%] font-poppins ">
         <form
-          className="bg-white shadow-lg rounded-lg p-4 max-w-lg w-full mx-auto space-y-2"
+          className="bg-white shadow-lg rounded-lg p-4 w-full mx-auto space-y-2"
           onSubmit={submit}>
           <div>
             <label
@@ -179,7 +176,7 @@ const ProductForm = ({ product }) => {
               value={selectedCategory}
               onChange={handleCategoryChange}
               className="mt-1 w-full p-2 border border-gray-300 bg-white text-black rounded focus:border-blue-500 focus:outline-none">
-              <option value="">Select Category</option>
+              <option value="select">Select Category</option>
               {displayedCategories.map((category) => (
                 <option key={category.id} value={category.id}>
                   {category.attributes.categoryTitle}
@@ -192,14 +189,14 @@ const ProductForm = ({ product }) => {
             <input
               type="file"
               onChange={handlePicture}
-              className="file-input file-input-bordered w-full max-w-xs w-full max-w-xs"
+              className="file-input file-input-bordered w-full"
             />
           </div>
 
           <div className="flex justify-center">
             <button
               type="submit"
-              className="bg-[#102262] text-white font-semibold px-6 py-2 rounded hover:bg-[#222] focus:outline-none focus:ring-2 focus:ring-blue-400">
+              className="bg-[#102262] text-white font-semibold px-4 py-2 rounded hover:bg-[#222] focus:outline-none focus:ring-2 focus:ring-blue-400">
               {isLoading ? (
                 <span className="loading loading-spinner loading-lg "></span>
               ) : isEditing ? (

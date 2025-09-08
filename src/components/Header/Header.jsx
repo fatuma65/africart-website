@@ -110,13 +110,13 @@ const Header = () => {
                     className="user-image mx-auto cursor-pointer rounded-full"
                   />
                 </summary>
-                <ul className="menu dropdown-content bg-white text-black rounded-md shadow-2xl z-[1] w-32 p-2">
-                  <li>
+                <ul className="menu dropdown-content bg-white text-black rounded-md shadow-2xl z-[1] w-36 p-2">
+                  <li className="mb-4 ml-3 cursor-pointer">
                     <a className="text-nowrap" onClick={navigateToDashboard}>
                       My Account
                     </a>
                   </li>
-                  <li>
+                  <li className="mb-4 ml-3 cursor-pointer">
                     <a onClick={logoutUser}>Logout</a>
                   </li>
                 </ul>

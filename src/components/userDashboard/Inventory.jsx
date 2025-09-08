@@ -13,40 +13,46 @@ const Inventory = () => {
     isLoading,
     setArtistProduct,
     isEditing,
-    refreshProducts, 
+    refreshProducts,
     setRefreshProducts,
     token,
     artistProduct,
     setIsEditing,
-    userProducts, 
+    userProducts,
     setUserProducts
+
   } = useProduct();
   const { userData } = useAuth();
- 
 
   const handleAddProducts = () => {
     setShowProducts(true);
-    setIsEditing(false)
+    setIsEditing(false);
   };
   const closeProducts = () => {
     setShowProducts(false);
-    setIsEditing(false)
+    setIsEditing(false);
   };
 
   const handleEdit = (product) => {
-    setShowProducts(true)
-    setIsEditing(!isEditing)
+    setShowProducts(true);
+    setIsEditing(!isEditing);
     // setArtistProduct(product)
-    setArtistProduct(product ? {
-      id: product.id,
-      productTitle: product.attributes?.productTitle,
-      description: product.attributes?.description,
-      price: product.attributes?.price,
-      category: product.attributes?.category.data?.id, 
-    } : {});
-  }
+    setArtistProduct(
+      product
+        ? {
+            id: product.id,
+            productTitle: product.attributes?.productTitle,
+            description: product.attributes?.description,
+            price: product.attributes?.price,
+            category: product.attributes?.category.data?.id,
+          }
+        : {}
+    );
+  };
+
   const fetchProductOfArtist = async () => {
     setIsLoading(true);
+    console.log(userData)
     const response = await fetch(
       `https://africart-strapi-api.onrender.com/api/products?filters[artists][id]=${userData.artist.id}&populate=*`
     );
@@ -80,22 +86,23 @@ const Inventory = () => {
       <div className="mt-6 mr-8 gap-2 flex justify-end font-poppins">
         <button
           onClick={handleAddProducts}
-          className=" bg-[#102262] flex items-center justify-center  gap-2 w-40 font-semibold text-white p-2 rounded hover:bg-[#000]">
+          className=" bg-[#102262] flex items-center justify-center  gap-2 w-40 font-semibold text-white p-2 rounded hover:bg-[#000]"
+        >
           <i className="bx bx-plus-circle m-0 text-xl"></i>
           Add Product
         </button>
       </div>
-      {(showProducts ) && (
+      {showProducts && (
         <div className="fixed inset-0 flex-col flex justify-center items-center bg-black bg-opacity-50 z-50">
           <div className="bg-white rounded-lg max-w-lg items-center flex justify-center p-4 relative">
             <button
               className="absolute text-2xl text-black text-center font-bold text-gray-700 hover:text-gray-900"
-              onClick={closeProducts}>
+              onClick={closeProducts}
+            >
               &times;
             </button>
           </div>
           <ProductForm product={isEditing ? artistProduct : null} />
-
         </div>
       )}
       <div className="overflow-x-auto p-6 ">
@@ -112,48 +119,51 @@ const Inventory = () => {
           <tbody className="">
             {userProducts.slice(0, 7).map((product) => (
               // <>
-                <tr key={product.id}>
-                  <th>{product.id}</th>
-                  <td>{product.attributes.productTitle}</td>
-                  <td className="text-black text-5xl">
-                    {
-                      product.attributes?.category.data?.id
-                    }
-                  </td>
-                  <td>{product.attributes.price}</td>
-                  <div className=" flex items-center justify-end gap-2">
-                    <button
+              <tr key={product.id}>
+                <th>{product.id}</th>
+                <td>{product.attributes.productTitle}</td>
+                <td className="text-black text-5xl">
+                  {product.attributes?.category.data?.id}
+                </td>
+                <td>{product.attributes.price}</td>
+                <div className=" flex items-center justify-end gap-2">
+                  <button
                     onClick={() => handleEdit(product)}
-                      className="btn btn-primary w-24 m-2 outline-none border-0 text-white"
-                      >
-                      Edit
-                    </button>
-                    <button
-                      className="btn btn-error text-white w-24"
-                      onClick={() => deleteProduct(product.id)}>
-                      Delete
-                    </button>
-                  </div>
-                </tr>
+                    className="btn btn-primary w-24 m-2 outline-none border-0 text-white"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="btn btn-error text-white w-24"
+                    onClick={() => deleteProduct(product.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <div className="join flex justify-center m-4">
-        <button
-          className="join-item btn bg-[#102262] text-white"
-          onClick={handleBackProducts}>
-          «
-        </button>
-        <button className="join-item btn bg-[#102262] text-white">
-          Page 1
-        </button>
-        <button
-          className="join-item btn bg-[#102262] text-white"
-          onClick={handleNextProducts}>
-          »
-        </button>
-      </div>
+      {userProducts.length !== 0 && (
+        <div className="join flex justify-center m-4">
+          <button
+            className="join-item btn bg-[#102262] text-white"
+            onClick={handleBackProducts}
+          >
+            «
+          </button>
+          <button className="join-item btn bg-[#102262] text-white">
+            Page 1
+          </button>
+          <button
+            className="join-item btn bg-[#102262] text-white"
+            onClick={handleNextProducts}
+          >
+            »
+          </button>
+        </div>
+      )}
     </>
   );
 };
