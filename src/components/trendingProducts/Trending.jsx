@@ -60,7 +60,7 @@ const Trending = () => {
         </p>
         <div className="buttons flex md:flex-row flex-col justify-center mt-4  gap-2  font-medium w-full">
           <button
-            className={`${theme === "dark" ? "text-[#fff]" : ""}  btn bg-white text-black hover:text-white`}
+            className={`${theme === "dark" ? "text-[#fff]" : ""} border-black btn border-2 text-black hover:bg-black hover:text-white`}
             onClick={() => handleNewProducts("new")}>
             New Products
           </button>
@@ -70,7 +70,7 @@ const Trending = () => {
             Featured Products
           </button>
           <button
-            className={`${theme === "dark" ? "text-[#fff]" : ""}  btn  bg-white text-black hover:text-white`}
+            className={`${theme === "dark" ? "text-[#fff]" : ""} border-black btn border-2 text-black hover:bg-black hover:text-white`}
             onClick={() => handleNewProducts("bestSeller")}>
             Best Sellers
           </button>
