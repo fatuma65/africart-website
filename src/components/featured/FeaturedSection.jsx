@@ -25,8 +25,8 @@ const Featured = () => {
 
   return (
     <div className=" lg:mb-16  font-poppins ">
-      <h2 className="font-semibold text-center text-xl text-[#D51C75]">Featured Products</h2>
-      <h1 className="font-bold text-4xl text-center">New Arrivals</h1>
+      {/* <h2 className="font-semibold text-center text-xl text-[#D51C75]">Featured Products</h2>
+      <h1 className="font-bold text-4xl text-center">New Arrivals</h1> */}
       <div className="lg:flex gap-4 justify-center items-center mt-4">
         <div className="lg:w-1/3">
           {newArrival[0] && (

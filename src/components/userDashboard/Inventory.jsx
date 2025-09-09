@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth, useProduct } from "../../contexts/customHook";
 import "./Dashboard.css";
 import ProductForm from "../products/ProductForm";
@@ -18,11 +18,9 @@ const Inventory = () => {
     token,
     artistProduct,
     setIsEditing,
-    userProducts,
-    setUserProducts
-
   } = useProduct();
   const { userData } = useAuth();
+  const [userProducts, setUserProducts] = useState([]);
 
   const handleAddProducts = () => {
     setShowProducts(true);
@@ -36,7 +34,6 @@ const Inventory = () => {
   const handleEdit = (product) => {
     setShowProducts(true);
     setIsEditing(!isEditing);
-    // setArtistProduct(product)
     setArtistProduct(
       product
         ? {
@@ -52,9 +49,8 @@ const Inventory = () => {
 
   const fetchProductOfArtist = async () => {
     setIsLoading(true);
-    console.log(userData)
     const response = await fetch(
-      `https://africart-strapi-api.onrender.com/api/products?filters[artists][id]=${userData.artist.id}&populate=*`
+      `https://africart-strapi-api.onrender.com/api/products?filters[artists][id][$eq]=${userData.artist.id}&populate=*`
     );
     const data = await response.json();
     setUserProducts(data.data);
@@ -83,6 +79,7 @@ const Inventory = () => {
 
   return (
     <>
+      {isLoading && <Spinner />}
       <div className="mt-6 mr-8 gap-2 flex justify-end font-poppins">
         <button
           onClick={handleAddProducts}
@@ -106,40 +103,57 @@ const Inventory = () => {
         </div>
       )}
       <div className="overflow-x-auto p-6 ">
+        {isLoading && <Spinner />}
         <table className="table table-xs tables">
           {isLoading && <Spinner />}
           <thead>
             <tr className="text-black text-sm">
               <th>Id</th>
+              <th>Product Image</th>
               <th>Product Title</th>
               <th>Category</th>
               <th>Price</th>
+              <th></th>
+              <th></th>
             </tr>
           </thead>
-          <tbody className="">
+          <tbody>
             {userProducts.slice(0, 7).map((product) => (
               // <>
-              <tr key={product.id}>
+              <tr key={product.id} className="text-center">
                 <th>{product.id}</th>
+                <th>
+                  <img
+                    src={product.attributes?.productImage?.data.map(
+                      (image) => image.attributes.url
+                    )}
+                    alt={product.attributes.productTitle}
+                    width={"90px"}
+                    height={"90px"}
+                    className="mx-auto"
+                  />
+                </th>
                 <td>{product.attributes.productTitle}</td>
-                <td className="text-black text-5xl">
-                  {product.attributes?.category.data?.id}
+                <td className="text-black">
+                  {product.attributes?.category.data?.attributes?.categoryTitle}
                 </td>
                 <td>{product.attributes.price}</td>
-                <div className=" flex items-center justify-end gap-2">
+                <td>
                   <button
                     onClick={() => handleEdit(product)}
-                    className="btn btn-primary w-24 m-2 outline-none border-0 text-white"
+                    className="btn btn-primary outline-none border-0"
                   >
                     Edit
                   </button>
+                </td>
+                <td>
                   <button
-                    className="btn btn-error text-white w-24"
+                    className="btn btn-error text-[red]"
                     onClick={() => deleteProduct(product.id)}
                   >
                     Delete
                   </button>
-                </div>
+                </td>
               </tr>
             ))}
           </tbody>
