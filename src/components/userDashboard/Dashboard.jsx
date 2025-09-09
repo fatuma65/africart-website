@@ -5,11 +5,11 @@ import { useAuth, useProduct } from "../../contexts/customHook";
 import Header from "../Header/Header";
 import Footer from "../footer/Footer";
 import "./Dashboard.css";
-import Order from '../Order'
+import Order from "../Order";
 import Inventory from "./Inventory";
 const Dashboard = () => {
   const { userData, logoutUser } = useAuth();
-const {parseArtist, userProducts} = useProduct()
+  const { parseArtist, products } = useProduct();
   const { theme } = useTheme();
 
   // State to track if ProductForm should be displayed
@@ -17,7 +17,7 @@ const {parseArtist, userProducts} = useProduct()
   const [showInventory, setShowInventory] = useState(false);
 
   const handleView = (type) => {
-  if (type === "orders") {
+    if (type === "orders") {
       setShowOrders(true);
     } else if (type === "inventory") {
       setShowInventory(true);
@@ -39,22 +39,22 @@ const {parseArtist, userProducts} = useProduct()
         <div className="flex flex-col lg:w-80 main-dash bg-[#fff] m-2 rounded">
           <h1
             className="bg-[#102262] text-white font-bold text-xl mx-auto p-3 w-72 text-center rounded mt-12 cursor-pointer shadow-xl"
-            onClick={() => handleView("dashboard")}>
+            onClick={() => handleView("dashboard")}
+          >
             Dashboard
           </h1>
           <div className="mx-auto mt-4 text-left m-12 cursor-pointer">
             {!parseArtist?.artist ? (
               <ul id="user-list">
-                <li onClick={() => handleView("orders")}>
-                  Orders
-                </li>
+                <li onClick={() => handleView("orders")}>Orders</li>
                 <li>Saved Items</li>
                 <li>Close Account</li>
                 <li
                   onClick={logoutUser}
                   className={`${
                     theme === "dark" ? "bg-[#fff] text-black" : "bg-[#D9D9D9]"
-                  } p-2 w-64 text-center rounded hover:bg-[#102262] hover:text-[#fff]`}>
+                  } p-2 w-64 text-center rounded hover:bg-[#102262] hover:text-[#fff]`}
+                >
                   Logout
                 </li>
               </ul>
@@ -69,7 +69,8 @@ const {parseArtist, userProducts} = useProduct()
                 <li
                   className={`${
                     theme === "dark" ? "bg-[#fff] text-black" : "bg-[#D9D9D9]"
-                  } p-2 w-64 text-center rounded hover:bg-[#102262] hover:text-[#fff]`}>
+                  } p-2 w-64 text-center rounded hover:bg-[#102262] hover:text-[#fff]`}
+                >
                   Logout
                 </li>
               </ul>
@@ -134,7 +135,9 @@ const {parseArtist, userProducts} = useProduct()
                     <div className="bg-[#102262] text-white p-2 w-64 flex justify-between items-center rounded">
                       <div className="flex flex-col gap-4">
                         <p className="text-xl">Products</p>
-                        <h1 className="font-bold text-2xl">{userProducts.length}</h1>
+                        <h1 className="font-bold text-2xl">
+                          {products.length}
+                        </h1>
                       </div>
                       <i className="bx bxs-data text-4xl p-2 text-center"></i>
                     </div>

@@ -24,7 +24,6 @@ export const ProductProvider = ({ children }) => {
   const [refreshProducts, setRefreshProducts] = useState(false);
   const token = localStorage.getItem("token");
   const [isEditing, setIsEditing] =useState(false)
-  const [userProducts, setUserProducts] = useState([]);
 
   const handlePicture = (e) => {
     setProductImage(e.target.files[0]);
@@ -59,7 +58,6 @@ export const ProductProvider = ({ children }) => {
     fetchApiProducts();
   }, []);
 
-  console.log(products)
   useEffect(() => {
     const startIndexOfProducts = currentPage * perProducts;
     const lastIndexOfProducts = startIndexOfProducts + perProducts;
@@ -125,7 +123,6 @@ export const ProductProvider = ({ children }) => {
   const  handleCategory = async () => {
     const response = await fetch ('https://africart-strapi-api.onrender.com/api/categories')
     const data = await response.json()
-    console.log(data.data)
     setDisplayedCategories(data.data)
   }
 
@@ -161,9 +158,7 @@ export const ProductProvider = ({ children }) => {
           isEditing, 
           setIsEditing,
           setArtistProduct,
-          parseArtist,
-          userProducts, 
-          setUserProducts,
+          parseArtist
         }}>
         {children}
       </ProductContext.Provider>
