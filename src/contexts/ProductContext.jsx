@@ -1,4 +1,4 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProductContext } from "./context";
 
@@ -23,13 +23,16 @@ export const ProductProvider = ({ children }) => {
   const [productImage, setProductImage] = useState(null);
   const [refreshProducts, setRefreshProducts] = useState(false);
   const token = localStorage.getItem("token");
-  const [isEditing, setIsEditing] =useState(false)
+  const [isEditing, setIsEditing] = useState(false);
 
   const handlePicture = (e) => {
     setProductImage(e.target.files[0]);
   };
   const handleInput = (event) => {
-    setArtistProduct({ ...artistProduct, [event.target.name]: event.target.value });
+    setArtistProduct({
+      ...artistProduct,
+      [event.target.name]: event.target.value,
+    });
   };
   // to display only a few products on the page.
   const navigate = useNavigate();
@@ -61,7 +64,7 @@ export const ProductProvider = ({ children }) => {
   useEffect(() => {
     const startIndexOfProducts = currentPage * perProducts;
     const lastIndexOfProducts = startIndexOfProducts + perProducts;
-    setDisplayedProducts( 
+    setDisplayedProducts(
       products.slice(startIndexOfProducts, lastIndexOfProducts)
     );
   }, [currentPage, products]);
@@ -87,8 +90,8 @@ export const ProductProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    window.scroll(0,0)
-  }, [products])
+    window.scroll(0, 0);
+  }, [products]);
 
   const handleViewNextProduct = (id) => {
     navigate(`/product/${id}`);
@@ -120,15 +123,17 @@ export const ProductProvider = ({ children }) => {
     return stars;
   };
 
-  const  handleCategory = async () => {
-    const response = await fetch ('https://africart-strapi-api.onrender.com/api/categories')
-    const data = await response.json()
-    setDisplayedCategories(data.data)
-  }
+  const handleCategory = async () => {
+    const response = await fetch(
+      "https://africart-strapi-api.onrender.com/api/categories"
+    );
+    const data = await response.json();
+    setDisplayedCategories(data.data);
+  };
 
   useEffect(() => {
-    handleCategory()
-  }, [])
+    handleCategory();
+  }, []);
 
   return (
     <>
@@ -149,17 +154,18 @@ export const ProductProvider = ({ children }) => {
           productImage,
           handlePicture,
           displayedCategories,
-          showProducts, 
+          showProducts,
           setShowProducts,
           setIsLoading,
-          refreshProducts, 
+          refreshProducts,
           setRefreshProducts,
           token,
-          isEditing, 
+          isEditing,
           setIsEditing,
           setArtistProduct,
-          parseArtist
-        }}>
+          parseArtist,
+        }}
+      >
         {children}
       </ProductContext.Provider>
     </>

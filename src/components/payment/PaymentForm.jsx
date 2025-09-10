@@ -23,7 +23,6 @@ const PaymentForm = () => {
         return_url: 'http://localhost:5173/payment-success'
       }
     });
-    console.log(response);
 
     setIsLoading(false);
   };

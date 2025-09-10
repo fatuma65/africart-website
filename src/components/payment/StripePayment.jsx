@@ -49,6 +49,7 @@ const StripePayment = () => {
       if (!amountInCents) return;
 
       try {
+        setLoading(true)
         const response = await fetch(
           "https://africart-strapi-api.onrender.com/api/payments/create-payment-intent",
           {
@@ -69,6 +70,8 @@ const StripePayment = () => {
         setClientSecret(data.clientSecret);
       } catch (error) {
         console.error("Error creating payment intent:", error);
+      } finally {
+        setLoading(false)
       }
     };
 
