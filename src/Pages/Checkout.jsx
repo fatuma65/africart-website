@@ -9,7 +9,6 @@ const Checkout = () => {
     <Header />
     <Navbar />
     <StripePayment />
-    <Footer />
     </>
   )
 }

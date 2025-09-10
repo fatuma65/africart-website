@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import {useProduct, useCart} from "../../contexts/customHook";
+import Spinner from "../Spinner";
 import "./CartStyles.css";
 const Cart = () => {
   const {
@@ -9,6 +10,7 @@ const Cart = () => {
     incrementQuantity,
     total,
   } = useCart();
+  const {isLoading} = useProduct()
   const {
     handleTitle,
     convertNumber
@@ -24,6 +26,7 @@ const Cart = () => {
   };
   return (
     <>
+    {isLoading && <Spinner />}
       <h1 className="text-3xl font-bold p-2 text-center mt-4 font-poppins">Shopping Cart</h1>
 
       <div className="lg:flex mt-2 font-poppins ">
@@ -31,9 +34,9 @@ const Cart = () => {
           <thead className=" m-2 p-2">
             <tr className=" border-head">
               <th className="p-2"></th>
-              <th className="p-2  "></th>
-              <th className="p-2 ">Product</th>
-              <th className="p-2 ">Price</th>
+              <th className="p-2"></th>
+              <th className="p-2">Product</th>
+              <th className="p-2">Price</th>
               <th className="p-2">Quantity</th>
               <th className="p-2">Sub Total</th>
             </tr>
