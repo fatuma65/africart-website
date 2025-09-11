@@ -39,16 +39,14 @@ export const ProductProvider = ({ children }) => {
   const formData = new FormData();
   formData.append("files", productImage);
   const fetchApiProducts = async () => {
-    setIsLoading(true);
     try {
+      setIsLoading(true);
       const response = await fetch(
         `https://africart-strapi-api.onrender.com/api/products/?populate=*`
       );
       if (response.ok) {
         const data = await response.json();
         setProducts(data.data);
-      } else {
-        console.log("An error occured");
       }
     } catch (error) {
       console.log("An Error occured", error);
@@ -124,11 +122,18 @@ export const ProductProvider = ({ children }) => {
   };
 
   const handleCategory = async () => {
-    const response = await fetch(
-      "https://africart-strapi-api.onrender.com/api/categories"
-    );
-    const data = await response.json();
-    setDisplayedCategories(data.data);
+    try {
+      setIsLoading(true);
+      const response = await fetch(
+        "https://africart-strapi-api.onrender.com/api/categories"
+      );
+      const data = await response.json();
+      setDisplayedCategories(data.data);
+    } catch (error) {
+      console.log("An error occured", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {

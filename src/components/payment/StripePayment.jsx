@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import PaymentForm from '../payment/PaymentForm';
-import {useCart} from "../../contexts/customHook";
+import PaymentForm from "../payment/PaymentForm";
+import { useCart } from "../../contexts/customHook";
 import Spinner from "../Spinner";
 
 const stripePromise = loadStripe(
@@ -12,13 +12,13 @@ const stripePromise = loadStripe(
 const StripePayment = () => {
   const [clientSecret, setClientSecret] = useState(null);
   const [amountInCents, setAmountInCents] = useState(null);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const { total } = useCart();
 
   useEffect(() => {
     const fetchExchangeRateAndConvert = async () => {
       try {
-        setLoading(true)
+        setLoading(true);
         const response = await fetch(
           "https://api.exchangerate-api.com/v4/latest/UGX"
         );
@@ -35,9 +35,8 @@ const StripePayment = () => {
         setAmountInCents(amountInCents);
       } catch (error) {
         console.error("Error fetching exchange rate:", error);
-      }
-      finally {
-        setLoading(false)
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -49,7 +48,7 @@ const StripePayment = () => {
       if (!amountInCents) return;
 
       try {
-        setLoading(true)
+        setLoading(true);
         const response = await fetch(
           "https://africart-strapi-api.onrender.com/api/payments/create-payment-intent",
           {
@@ -71,7 +70,7 @@ const StripePayment = () => {
       } catch (error) {
         console.error("Error creating payment intent:", error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
     };
 
@@ -87,9 +86,7 @@ const StripePayment = () => {
 
   return (
     <>
-    <div className="h-1/2">
-    {loading && <Spinner/>}
-    </div>
+      <div className="h-1/2">{loading && <Spinner />}</div>
       {clientSecret && (
         <Elements stripe={stripePromise} options={options}>
           <PaymentForm />

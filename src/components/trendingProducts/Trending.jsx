@@ -22,9 +22,7 @@ const Trending = () => {
   const handleNewProducts = (type) => {
     const today = new Date();
 
-    const recentProducts = products
-    
-    .filter((product) => {
+    const recentProducts = products.filter((product) => {
       if (type === "new") {
         const createdAt = new Date(product.attributes.createdAt);
         // convert the day which is in milliseconds into days.
@@ -48,7 +46,7 @@ const Trending = () => {
 
   return (
     <>
-      <div >
+      <div>
         <h1 className="text-xl font-bold text-center p-4">
           Trending <span className="text-[#D51C75]">Products</span>
         </h1>
@@ -60,18 +58,25 @@ const Trending = () => {
         </p>
         <div className="buttons flex md:flex-row flex-col justify-center mt-4  gap-2  font-medium w-full">
           <button
-            className={`${theme === "dark" ? "text-[#fff]" : ""} border-black btn border-2 text-black hover:bg-black hover:text-white`}
-            onClick={() => handleNewProducts("new")}>
+            className={`${
+              theme === "dark" ? "text-[#fff]" : ""
+            } border-black btn border-2 text-black hover:bg-black hover:text-white`}
+            onClick={() => handleNewProducts("new")}
+          >
             New Products
           </button>
           <button
             className="text-white active:bg-rose-400 btn border-none text-nowrap hover:bg-slate-500 bg-[#D51C75]"
-            onClick={() => handleNewProducts("featured")}>
+            onClick={() => handleNewProducts("featured")}
+          >
             Featured Products
           </button>
           <button
-            className={`${theme === "dark" ? "text-[#fff]" : ""} border-black btn border-2 text-black hover:bg-black hover:text-white`}
-            onClick={() => handleNewProducts("bestSeller")}>
+            className={`${
+              theme === "dark" ? "text-[#fff]" : ""
+            } border-black btn border-2 text-black hover:bg-black hover:text-white`}
+            onClick={() => handleNewProducts("bestSeller")}
+          >
             Best Sellers
           </button>
         </div>
@@ -97,7 +102,8 @@ const Trending = () => {
               </div>
               <button
                 className="bg-[#102262] text-white btn  m-2 font-semibold w-full text-center mx-auto hover:bg-[#000]"
-                onClick={() => handleViewNextProduct(product.id)}>
+                onClick={() => handleViewNextProduct(product.id)}
+              >
                 View Product
               </button>
             </div>

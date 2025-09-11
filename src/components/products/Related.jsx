@@ -1,28 +1,35 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import {useProduct} from "../../contexts/customHook";
+import Spinner from "../Spinner.jsx";
+import { useProduct } from "../../contexts/customHook";
 
-const RelatedProducts = ({ singleProduct, setLoading }) => {
-  const { products, handleTitle, handleViewNextProduct, convertNumber } = useProduct();
+const RelatedProducts = ({ singleProduct, setIsLoading, isLoading }) => {
+  const { products, handleTitle, handleViewNextProduct, convertNumber } =
+    useProduct();
   const [filteredRelatedProducts, setFilteredRelatedProducts] = useState([]);
 
   useEffect(() => {
-    setLoading(true);
-    const relatedProducts = singleProduct !== null && products.filter(
-      (product) =>
-        product?.attributes?.category.data?.attributes?.categoryTitle ===
-        singleProduct?.attributes?.category?.data.attributes?.categoryTitle && product.id !== singleProduct.id
-    );
+    setIsLoading(true);
+    const relatedProducts =
+      singleProduct !== null &&
+      products.filter(
+        (product) =>
+          product?.attributes?.category.data?.attributes?.categoryTitle ===
+            singleProduct?.attributes?.category?.data?.attributes
+              ?.categoryTitle && product.id !== singleProduct.id
+      );
+
     if (relatedProducts) {
       setFilteredRelatedProducts(relatedProducts);
     } else {
       console.log("Related Products not found");
-    };
+    }
 
-    setLoading(false);
+    setIsLoading(false);
   }, [singleProduct, products]);
   return (
     <>
+      {isLoading && <Spinner />}
       <div className="flex flex-col m-auto justify-center  font-poppins  items-start lg:ml-24 p-4">
         <h1 className="font-bold text-2xl">Related Products</h1>
         <hr className="w-36  hr1" />
@@ -40,11 +47,9 @@ const RelatedProducts = ({ singleProduct, setLoading }) => {
                 <h1 className="text-[#000] text-xl font-bold p-2">
                   {handleTitle(filtered.attributes?.productTitle)}
                 </h1>
-                <h3 className="p-2 text-xl font-semibold">
-                  {" "}
-                  Category:{" "}
-                  {filtered.attributes?.category.data?.attributes.categoryTitle}
-                </h3>
+                <h6 className="p-2 text-base ">
+                  {singleProduct.attributes.description}
+                </h6>
                 <h3 className="text-[red] text-xl font-bold p-2">
                   UGX {convertNumber(filtered.attributes?.price)}
                 </h3>
@@ -53,7 +58,8 @@ const RelatedProducts = ({ singleProduct, setLoading }) => {
                   onClick={(e) => {
                     e.stopPropagation();
                     handleViewNextProduct(filtered.id);
-                  }}>
+                  }}
+                >
                   View Product
                 </button>
               </div>
