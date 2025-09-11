@@ -1,16 +1,16 @@
-import Footer from '../components/footer/Footer'
-import Header from '../components/Header/Header'
-import Navbar from '../components/Navbar'
-import StripePayment from '../components/payment/StripePayment'
+import Footer from "../components/footer/Footer";
+import Header from "../components/Header/Header";
+import Navbar from "../components/Navbar";
+import StripePayment from "../components/payment/StripePayment";
 
 const Checkout = () => {
   return (
     <>
-    <Header />
-    <Navbar />
-    <StripePayment />
+      <Header />
+      <Navbar />
+      <StripePayment />
     </>
-  )
-}
+  );
+};
 
-export default Checkout
+export default Checkout;

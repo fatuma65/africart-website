@@ -2,31 +2,31 @@ import { useEffect, useState } from "react";
 import "./Details.css";
 import { useParams } from "react-router-dom";
 import RelatedProducts from "./Related.jsx";
-import {useProduct, useCart} from "../../contexts/customHook.js";
-import Spinner from '../Spinner.jsx'
+import { useProduct, useCart } from "../../contexts/customHook.js";
+import Spinner from "../Spinner.jsx";
 
 const ProductDetail = () => {
   let params = useParams();
   let numberId = parseInt(params.id);
   const [singleProduct, setSingleProduct] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const { convertNumber} =
-    useProduct();
-    const {handleAddToCart} = useCart()
+  const { isLoading, setIsLoading } = useProduct();
+  const { convertNumber } = useProduct();
+  const { handleAddToCart } = useCart();
 
   const fetchSingleProduct = async () => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       const response = await fetch(
         `https://africart-strapi-api.onrender.com/api/products/${numberId}/?populate=*`
       );
       if (response.ok) {
         const data = await response.json();
         setSingleProduct(data.data);
-        setLoading(false);
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
   useEffect(() => {
@@ -35,10 +35,10 @@ const ProductDetail = () => {
 
   return (
     <>
+      {isLoading && <Spinner />}
       <h1 className="font-semibold product-det text-2xl">Product Details</h1>
       <hr className="w-36 hr" />
       <div className=" mt-8 flex flex-col lg:flex-row lg:p-4 p-2 lg:justify-center">
-      {loading && <Spinner />}
         {singleProduct !== null && (
           <>
             <img
@@ -52,29 +52,27 @@ const ProductDetail = () => {
               <h1 className="font-bold text-2xl lg:p-2 ">
                 {singleProduct.attributes.productTitle}
               </h1>
-              <h4 className="font-semibold text-xl p-2">
-                Category:{" "}
-                {
-                  singleProduct.attributes.category?.data?.attributes
-                    .categoryTitle
-                }
-              </h4>
+              <h6 className="p-2 text-base ">
+                {singleProduct.attributes.description}
+              </h6>
               <h2 className="text-[red] font-semibold p-2 text-xl">
                 UGX {convertNumber(singleProduct.attributes.price)}
               </h2>
-              <p className="p-2 text-base ">
-                {singleProduct.attributes.description}
-              </p>
               <button
                 className=" m-2 bg-[#102262] text-white font-semibold text-center w-96 hover:bg-[#222]"
-                onClick={() => handleAddToCart(singleProduct)}>
+                onClick={() => handleAddToCart(singleProduct)}
+              >
                 Add to Cart
               </button>
             </div>
           </>
         )}
       </div>
-      <RelatedProducts singleProduct={singleProduct} setLoading={setLoading} />
+      <RelatedProducts
+        singleProduct={singleProduct}
+        setIsLoading={setIsLoading}
+        isLoading={isLoading}
+      />
     </>
   );
 };
